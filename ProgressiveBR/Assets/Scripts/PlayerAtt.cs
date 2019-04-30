@@ -25,11 +25,13 @@ public class PlayerAtt : NetworkBehaviour
                 Debug.DrawLine(character.position, hit.point);
 
                 Transform projectile = Instantiate(bullet, character.transform.position+new Vector3(1,0,0), Quaternion.identity) as Transform;
+                
                 // turn the projectile to hit.point
                 projectile.LookAt(hit.point);
                 // accelerate it
                 RB = projectile.GetComponent<Rigidbody>();
                 RB.velocity = projectile.forward * 100;
+                NetworkServer.Spawn(projectile.gameObject);
             }
         }
     }
