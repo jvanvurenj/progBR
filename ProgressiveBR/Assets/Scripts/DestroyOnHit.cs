@@ -6,7 +6,7 @@ public class DestroyOnHit : MonoBehaviour
 {
     void Start()
     {
-        var time = 1;
+        var time = .75f;
         Destroy(gameObject, time);
     }
 }
