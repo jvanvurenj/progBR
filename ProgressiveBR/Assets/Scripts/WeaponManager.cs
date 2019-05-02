@@ -7,6 +7,8 @@ using UnityEngine.Networking;
 
 public class WeaponManager : NetworkBehaviour
 {
+
+    public int projectileSpeed = 300;
     // How fast the player c
     [SerializeField]
     private float fireRate = 1;
@@ -71,8 +73,13 @@ public class WeaponManager : NetworkBehaviour
         //_animator.SetTrigger("Fire");
 
         GameObject spawnedArrow = Instantiate(arrowPrefab, firePoint.transform.position, firePoint.transform.rotation);
-        spawnedArrow.GetComponent<Rigidbody>().AddForce(spawnedArrow.transform.forward * 150);
+        spawnedArrow.GetComponent<Rigidbody>().AddForce(spawnedArrow.transform.forward * projectileSpeed);
         NetworkServer.Spawn(spawnedArrow);
 
+    }
+    
+    public void SetProjectileSpeed(int speed)
+    {
+        projectileSpeed = speed;
     }
 }
