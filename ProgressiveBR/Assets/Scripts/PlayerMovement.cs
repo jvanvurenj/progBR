@@ -15,7 +15,7 @@ public class PlayerMovement : NetworkBehaviour
     public float speed = 6.0f;
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
-
+    public Camera MyCamera;
     private Vector3 moveDirection = Vector3.zero;
 
     void Start()
@@ -54,5 +54,11 @@ public class PlayerMovement : NetworkBehaviour
 
         // Move the controller
         characterController.Move(moveDirection * Time.deltaTime);
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        MyCamera = Instantiate(Camera.main);
+        MyCamera.GetComponent<CameraController>().setTarget(gameObject);
     }
 }
