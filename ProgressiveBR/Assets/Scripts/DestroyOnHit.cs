@@ -5,6 +5,10 @@ using UnityEngine.Networking;
 
 public class DestroyOnHit : NetworkBehaviour
 {
+
+    [SerializeField]
+    private float damage = 0;
+
     void Start()
     {
         // Just incase.
@@ -13,10 +17,11 @@ public class DestroyOnHit : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Here we would check if we collied with a player.
-        // If (other.tag == "Player"), we apply logic such as damage their hitpoints.
+        if (other.tag == "Player")
+        {
+            other.GetComponent<HealthManager>().TakeDamage(damage);
+        }
         // We also can Instantiate a prefab here on the collider hitpoint such as an explosion.
-
         // Delete after performing all needed steps.
         Destroy(this.gameObject);
     }

@@ -16,9 +16,10 @@ GameObject:
   - component: {fileID: 4938813656437673734}
   - component: {fileID: 2956450069706969781}
   - component: {fileID: 7773386992043974365}
+  - component: {fileID: 208971881348946261}
   m_Layer: 0
   m_Name: Player_Archer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,6 +178,20 @@ MonoBehaviour:
     type: 3}
   NetPrefab: {fileID: 6433841604317673523, guid: 9784348becbdc6540bff0a46c96cf580,
     type: 3}
+--- !u!114 &208971881348946261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642668146854666548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a20c2caa0d07fe49b28d337345fe711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: 100
+  isAlive: 1
 --- !u!1 &2588257571941685983
 GameObject:
   m_ObjectHideFlags: 0
