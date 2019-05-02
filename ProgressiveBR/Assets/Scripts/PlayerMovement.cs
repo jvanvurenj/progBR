@@ -27,6 +27,9 @@ public class PlayerMovement : NetworkBehaviour
         characterController = GetComponent<CharacterController>();
     }
 
+
+
+
     void Update()
     {
         if (!isLocalPlayer)
@@ -60,5 +63,6 @@ public class PlayerMovement : NetworkBehaviour
     {
         MyCamera = Instantiate(Camera.main);
         MyCamera.GetComponent<CameraController>().setTarget(gameObject);
+        
     }
 }
