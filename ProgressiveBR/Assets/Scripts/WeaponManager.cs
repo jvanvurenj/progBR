@@ -74,8 +74,9 @@ public class WeaponManager : NetworkBehaviour
     {
         // Enable animation for player shooting.
         //_animator.SetTrigger("Fire");
-        GameObject prefabSpawner = Instantiate(NetPrefab);
-        prefabSpawner.GetComponent<prefabSpawn>().CmdArrow(firePoint, projectileSpeed);
+        //GameObject prefabSpawner = Instantiate(NetPrefab);
+        //prefabSpawner.GetComponent<prefabSpawn>().CmdArrow(this.gameObject, projectileSpeed);
+        CmdArrow();
         
         //GameObject spawnedArrow = Instantiate(arrowPrefab, firePoint.transform.position, firePoint.transform.rotation);
         //spawnedArrow.GetComponent<Rigidbody>().AddForce(spawnedArrow.transform.forward * projectileSpeed);
@@ -86,5 +87,16 @@ public class WeaponManager : NetworkBehaviour
     public void SetProjectileSpeed(int speed)
     {
         projectileSpeed = speed;
+    }
+
+    [Command]
+    public void CmdArrow()
+    {
+        //print(isLocalPlayer);
+        
+        GameObject spawnedArrow = Instantiate(arrowPrefab, firePoint.transform.position, firePoint.transform.rotation);
+        spawnedArrow.GetComponent<Rigidbody>().AddForce(spawnedArrow.transform.forward * projectileSpeed);
+        NetworkServer.Spawn(spawnedArrow);
+        return;
     }
 }
