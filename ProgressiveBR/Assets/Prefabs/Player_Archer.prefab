@@ -169,10 +169,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d9432fb852462945bbb6b090825550f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileSpeed: 300
   fireRate: 1
   _animator: {fileID: 6989089168622527072}
   firePoint: {fileID: 2588257571941685983}
   arrowPrefab: {fileID: 1764349242985454425, guid: 64fc12c083e037d47ad816f3f6c2c712,
+    type: 3}
+  NetPrefab: {fileID: 6433841604317673523, guid: 9784348becbdc6540bff0a46c96cf580,
     type: 3}
 --- !u!1 &2588257571941685983
 GameObject:
@@ -211,9 +214,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1642668146854666537}
     m_Modifications:
-    - target: {fileID: 100000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
-      propertyPath: m_Name
-      value: Archer Warrior
+    - target: {fileID: 9590292, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9590292, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -259,13 +266,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9590292, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9590292, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
+    - target: {fileID: 100000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
+      propertyPath: m_Name
+      value: Archer Warrior
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11490294, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}

@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 public class WeaponManager : NetworkBehaviour
 {
-
+    //private GameObject prefabSpawner;
     public int projectileSpeed = 300;
     // How fast the player c
     [SerializeField]
@@ -20,9 +20,12 @@ public class WeaponManager : NetworkBehaviour
     [SerializeField]
     private GameObject firePoint;
 
+ 
     // Prefabs for projectiles
     [SerializeField]
     private GameObject arrowPrefab;
+    [SerializeField]
+    private GameObject NetPrefab;
 
     private Camera playerCamera;
 
@@ -71,10 +74,12 @@ public class WeaponManager : NetworkBehaviour
     {
         // Enable animation for player shooting.
         //_animator.SetTrigger("Fire");
-
-        GameObject spawnedArrow = Instantiate(arrowPrefab, firePoint.transform.position, firePoint.transform.rotation);
-        spawnedArrow.GetComponent<Rigidbody>().AddForce(spawnedArrow.transform.forward * projectileSpeed);
-        NetworkServer.Spawn(spawnedArrow);
+        GameObject prefabSpawner = Instantiate(NetPrefab);
+        prefabSpawner.GetComponent<prefabSpawn>().CmdArrow(firePoint, projectileSpeed);
+        
+        //GameObject spawnedArrow = Instantiate(arrowPrefab, firePoint.transform.position, firePoint.transform.rotation);
+        //spawnedArrow.GetComponent<Rigidbody>().AddForce(spawnedArrow.transform.forward * projectileSpeed);
+        //NetworkServer.Spawn(spawnedArrow);
 
     }
     
