@@ -37,8 +37,9 @@ public class HealthManager : NetworkBehaviour
     public void RpcHpBar(float amt)
     {
         
-         hpBar.fillAmount = amt;
-        
+        hpBar.fillAmount = amt;
+       
+
     }
 
     [Command]
@@ -50,7 +51,7 @@ public class HealthManager : NetworkBehaviour
     [ClientRpc]
     public void RpcXpBar(float amt)
     {
-
+        
         xpBar.fillAmount = amt;
 
     }
