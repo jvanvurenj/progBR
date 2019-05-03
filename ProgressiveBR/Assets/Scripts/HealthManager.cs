@@ -7,12 +7,20 @@ using UnityEngine.UI;
 public class HealthManager : NetworkBehaviour
 {
 
-    // Starting health can be set to whatever.
+    private float playerExperience = 0;
+
+    // To be used later.
+    private int playerLevel = 0;
+
+    [SerializeField]
+    private float xpPerKill = .25f;
+
     [SerializeField]
     private float playerHealth = 100;
     private float startingHP;
     public bool isAlive = true;
     public Image hpBar;
+    public Image xpBar;
 
     private void Start()
     {
@@ -33,7 +41,36 @@ public class HealthManager : NetworkBehaviour
         
     }
 
-    public void TakeDamage(float amt)
+    [Command]
+    public void CmdXpBar(float amt)
+    {
+        RpcXpBar(amt);
+    }
+
+    [ClientRpc]
+    public void RpcXpBar(float amt)
+    {
+
+        xpBar.fillAmount = amt;
+
+    }
+
+
+    public void GainExperience(float amt)
+    {
+        playerExperience += amt;
+        if(playerExperience >= 1f)
+        {
+            playerExperience = 0;
+            playerLevel += 1;
+            // Give level up stuff
+        }
+        xpBar.fillAmount = playerExperience;
+        CmdXpBar(playerExperience);
+    }
+
+
+    public void TakeDamage(float amt, GameObject sender)
     {
 
        
@@ -46,6 +83,9 @@ public class HealthManager : NetworkBehaviour
         {
             // Perform other logics like giving points to whoever killed this person
             // Network operations needed to remove prefabs , etc
+            // 1/4 a leve
+            sender.GetComponent<HealthManager>().GainExperience(xpPerKill);
+
             Destroy(this.gameObject);
         }
     }
