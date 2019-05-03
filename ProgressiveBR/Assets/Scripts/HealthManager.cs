@@ -13,7 +13,7 @@ public class HealthManager : NetworkBehaviour
     private int playerLevel = 0;
 
     [SerializeField]
-    private float xpPerKill = .25f;
+    private float xpPerKill = .5f;
 
     [SerializeField]
     private float playerHealth = 100;

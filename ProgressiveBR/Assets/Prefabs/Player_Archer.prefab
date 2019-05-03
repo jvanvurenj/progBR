@@ -362,13 +362,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1610202260460367847}
-  m_LocalRotation: {x: -0.5735764, y: 0, z: 0, w: 0.8191521}
+  m_LocalRotation: {x: 0, y: 0.5735764, z: 0.8191521, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4430324245071462776}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: -70, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -70, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -15}
@@ -644,10 +644,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1642668146854666537}
     m_Modifications:
-    - target: {fileID: 100000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
-      propertyPath: m_Name
-      value: Archer Warrior
-      objectReference: {fileID: 0}
     - target: {fileID: 9590292, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -699,6 +695,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
+      propertyPath: m_Name
+      value: Archer Warrior
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11490294, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
