@@ -95,9 +95,11 @@ public class GameManager : NetworkBehaviour
         yield return new WaitForSeconds(.25f);
         Text.text = "";
         UnRestrictPlayers();
+        yield return new WaitForSeconds(.15f);
+        
 
-        
-        
+
+
     }
 
     // Count the number of players connected to the server, avoiding nulls
