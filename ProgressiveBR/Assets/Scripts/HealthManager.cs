@@ -13,7 +13,7 @@ public class HealthManager : NetworkBehaviour
     private int playerLevel = 0;
 
     [SerializeField]
-    private float xpPerKill = .25f;
+    private float xpPerKill = .5f;
 
     [SerializeField]
     private float playerHealth = 100;
@@ -37,8 +37,9 @@ public class HealthManager : NetworkBehaviour
     public void RpcHpBar(float amt)
     {
         
-         hpBar.fillAmount = amt;
-        
+        hpBar.fillAmount = amt;
+       
+
     }
 
     [Command]
@@ -50,7 +51,7 @@ public class HealthManager : NetworkBehaviour
     [ClientRpc]
     public void RpcXpBar(float amt)
     {
-
+        
         xpBar.fillAmount = amt;
 
     }

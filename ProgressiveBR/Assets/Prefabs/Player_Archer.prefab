@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 1
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 2253386587227556227}
   - component: {fileID: 7002188125429914268}
   - component: {fileID: 638361092986430081}
+  - component: {fileID: 3629704647734509752}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -176,6 +177,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3629704647734509752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080987092357219940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3b9558dc256ffa4e9764779247ec583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1389733087948562668
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -349,13 +362,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1610202260460367847}
-  m_LocalRotation: {x: -0.5735764, y: 0, z: 0, w: 0.8191521}
+  m_LocalRotation: {x: 0, y: 0.5735764, z: 0.8191521, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4430324245071462776}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: -70, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -70, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -15}
@@ -393,10 +406,10 @@ MonoBehaviour:
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 1
+  m_FillMethod: 0
   m_FillAmount: 0
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 1
   m_UseSpriteMesh: 0
 --- !u!1 &1642668146854666548
 GameObject:
@@ -415,7 +428,6 @@ GameObject:
   - component: {fileID: 2956450069706969781}
   - component: {fileID: 7773386992043974365}
   - component: {fileID: 208971881348946261}
-  - component: {fileID: 495574095862191952}
   m_Layer: 0
   m_Name: Player_Archer
   m_TagString: Player
@@ -595,19 +607,6 @@ MonoBehaviour:
   isAlive: 1
   hpBar: {fileID: 7072973542568509855}
   xpBar: {fileID: 215558126001707265}
---- !u!114 &495574095862191952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642668146854666548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2978e1a8bb576a54a9066aab53cf02a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisCanvas: {fileID: 2253386587227556227}
 --- !u!1 &2588257571941685983
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,15 +703,15 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 11490294, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
---- !u!4 &6989089168631721716 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: d2c0943173fa94146bd1b04b5438a19d,
-    type: 3}
-  m_PrefabInstance: {fileID: 6989089168631854196}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &6989089168622527072 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 9590292, guid: d2c0943173fa94146bd1b04b5438a19d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6989089168631854196}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6989089168631721716 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: d2c0943173fa94146bd1b04b5438a19d,
     type: 3}
   m_PrefabInstance: {fileID: 6989089168631854196}
   m_PrefabAsset: {fileID: 0}
