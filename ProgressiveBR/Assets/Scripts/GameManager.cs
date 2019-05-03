@@ -10,21 +10,36 @@ public class GameManager : NetworkBehaviour
     public Text Text;
     public int minimumPlayers = 4;
     public float countdownTime = 10f;
-
     private int numConnected;
 
-    //void Start()
-    //{
-    //    StartCoroutine(GameLoop());
-    //}
+    bool AllConnected = false;
 
-    void Update()
+    void Start()
+    {
+        StartCoroutine(WaitForPlayers());
+    }
+
+
+    [Command]
+    public void CmdStartGame()
+    {
+        RpcStartGame();
+    }
+
+    [ClientRpc]
+    public void RpcStartGame()
+    {
+        StartCoroutine(CountDown(4));
+    }
+
+    IEnumerator WaitForPlayers()
     {
         // Wait to start game until minimum players are connected
         int connected = GetConnectionCount();
         string waiting;
-        if (isServer && connected < minimumPlayers)
+        while (isServer && connected < minimumPlayers)
         {
+            connected = GetConnectionCount();
             if (connected == 1)
             {
                 waiting = "Waiting for players to connect...\n" + connected + " player connected.";
@@ -34,22 +49,33 @@ public class GameManager : NetworkBehaviour
                 waiting = "Waiting for players to connect...\n" + connected + " players connected.";
             }
             Text.text = waiting;
+            yield return null;
         }
-      
-        if (connected >= minimumPlayers)
+
+        CmdStartGame();
+    }
+
+
+
+
+    IEnumerator CountDown(int n)
+    {
+        // Countdown for game to begin
+        int cooldown = n;
+        while(cooldown >= 0)
         {
-            // Countdown for game to begin
-            countdownTime -= Time.deltaTime;
-            Text.text = "Starting game in " + Mathf.Round(countdownTime) + " seconds";
-            if (countdownTime < 0)
-            {
-                Text.text = "";
-            }
-            if (OnePlayerLeft())
-            {
-                Text.text = "GAME OVER!";
-            }
+            Text.text = "Starting game in " + Mathf.Round(cooldown) + " seconds";
+            cooldown -= 1;
+            yield return new WaitForSeconds(1f);
         }
+        Text.text = "";
+        
+        while(!OnePlayerLeft())
+        {
+           yield return null;
+        }
+        Text.text = "GAME OVER!";
+        
     }
 
     // Count the number of players connected to the server, avoiding nulls
