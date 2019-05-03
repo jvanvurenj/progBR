@@ -16,7 +16,7 @@ public class GameManager : NetworkBehaviour
     void Start()
     {
         StartCoroutine(WaitForPlayers());
-        StartCoroutine(RestrictPlayers());
+       // StartCoroutine(RestrictPlayers());
     }
 
 
@@ -56,6 +56,14 @@ public class GameManager : NetworkBehaviour
         CmdStartGame();
     }
 
+    void UnRestrictPlayers()
+    {
+        GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject obj in Players)
+        {
+            obj.GetComponent<PlayerMovement>().isEnabled = true;
+        }
+    }
 
     IEnumerator RestrictPlayers()
     {
@@ -86,12 +94,9 @@ public class GameManager : NetworkBehaviour
         Text.text = "Start!";
         yield return new WaitForSeconds(.25f);
         Text.text = "";
-        AllConnected = true;
+        UnRestrictPlayers();
 
-        while (!OnePlayerLeft())
-        {
-           yield return null;
-        }
+        
         
     }
 
