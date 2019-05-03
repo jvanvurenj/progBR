@@ -95,6 +95,7 @@ public class WeaponManager : NetworkBehaviour
         //print(isLocalPlayer);
         
         GameObject spawnedArrow = Instantiate(arrowPrefab, firePoint.transform.position, firePoint.transform.rotation);
+        spawnedArrow.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
         spawnedArrow.GetComponent<Rigidbody>().AddForce(spawnedArrow.transform.forward * projectileSpeed);
         NetworkServer.Spawn(spawnedArrow);
         return;
