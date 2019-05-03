@@ -32,6 +32,19 @@ public class GameManager : NetworkBehaviour
         StartCoroutine(CountDown(4));
     }
 
+    [Command]
+    public void CmdUnrestrict()
+    {
+        RpcUnrestrict();
+    }
+
+    [ClientRpc]
+    public void RpcUnrestrict()
+    {
+        UnRestrictPlayers();
+    }
+
+
     IEnumerator WaitForPlayers()
     {
         // Wait to start game until minimum players are connected
@@ -94,11 +107,7 @@ public class GameManager : NetworkBehaviour
         Text.text = "Start!";
         yield return new WaitForSeconds(.25f);
         Text.text = "";
-        UnRestrictPlayers();
-        yield return new WaitForSeconds(.15f);
-        UnRestrictPlayers();
-
-
+        CmdUnrestrict();
 
     }
 
