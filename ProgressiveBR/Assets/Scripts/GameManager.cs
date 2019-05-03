@@ -92,7 +92,6 @@ public class GameManager : NetworkBehaviour
         {
            yield return null;
         }
-        Text.text = "YOU WON! GAME OVER!";
         
     }
 
