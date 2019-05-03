@@ -41,7 +41,7 @@ public class WeaponManager : NetworkBehaviour
     void Update()
     {
 
-        if (!isLocalPlayer) { return; }
+        if (!isLocalPlayer || !GetComponent<PlayerMovement>().isEnabled) { return; }
 
         PointToMouse();
 

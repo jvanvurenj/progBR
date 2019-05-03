@@ -11,12 +11,12 @@ public class GameManager : NetworkBehaviour
     public int minimumPlayers = 4;
     public float countdownTime = 10f;
     private int numConnected;
-
     bool AllConnected = false;
 
     void Start()
     {
         StartCoroutine(WaitForPlayers());
+        StartCoroutine(RestrictPlayers());
     }
 
 
@@ -36,6 +36,7 @@ public class GameManager : NetworkBehaviour
     {
         // Wait to start game until minimum players are connected
         int connected = GetConnectionCount();
+        //StartCoroutine(RestrictPlayers());
         string waiting;
         while (isServer && connected < minimumPlayers)
         {
@@ -56,6 +57,20 @@ public class GameManager : NetworkBehaviour
     }
 
 
+    IEnumerator RestrictPlayers()
+    {
+        while (!AllConnected)
+        {
+            yield return null;
+        }
+        GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject obj in Players)
+        {
+            obj.GetComponent<PlayerMovement>().isEnabled = true;
+            yield return null;
+        }
+
+    }
 
 
     IEnumerator CountDown(int n)
@@ -68,13 +83,16 @@ public class GameManager : NetworkBehaviour
             cooldown -= 1;
             yield return new WaitForSeconds(1f);
         }
+        Text.text = "Start!";
+        yield return new WaitForSeconds(.25f);
         Text.text = "";
-        
-        while(!OnePlayerLeft())
+        AllConnected = true;
+
+        while (!OnePlayerLeft())
         {
            yield return null;
         }
-        Text.text = "GAME OVER!";
+        Text.text = "YOU WON! GAME OVER!";
         
     }
 
