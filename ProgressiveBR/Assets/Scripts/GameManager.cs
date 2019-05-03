@@ -96,7 +96,7 @@ public class GameManager : NetworkBehaviour
         Text.text = "";
         UnRestrictPlayers();
         yield return new WaitForSeconds(.15f);
-        
+        UnRestrictPlayers();
 
 
 
