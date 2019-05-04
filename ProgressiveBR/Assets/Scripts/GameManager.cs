@@ -9,14 +9,13 @@ public class GameManager : NetworkBehaviour
 {
     public Text Text;
     public int minimumPlayers = 4;
-    public float countdownTime = 10f;
+    public int countdownTime = 4;
     private int numConnected;
     bool AllConnected = false;
 
     void Start()
     {
         StartCoroutine(WaitForPlayers());
-       // StartCoroutine(RestrictPlayers());
     }
 
 
@@ -29,7 +28,7 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     public void RpcStartGame()
     {
-        StartCoroutine(CountDown(4));
+        StartCoroutine(CountDown(countdownTime));
     }
 
     [Command]
@@ -49,24 +48,23 @@ public class GameManager : NetworkBehaviour
     {
         // Wait to start game until minimum players are connected
         int connected = GetConnectionCount();
-        //StartCoroutine(RestrictPlayers());
-        string waiting;
+
         while (isServer && connected < minimumPlayers)
         {
             connected = GetConnectionCount();
-            if (connected == 1)
-            {
-                waiting = "Waiting for players to connect...\n" + connected + " player connected.";
-            }
-            else
-            {
-                waiting = "Waiting for players to connect...\n" + connected + " players connected.";
-            }
-            Text.text = waiting;
+            Text.text = "Waiting for players to connect...\n" + connected + " players connected.";
             yield return null;
         }
-
-        CmdStartGame();
+        // Delay to account for latency lag
+        int waitTime = 2;
+        while(isServer && waitTime > 0)
+        {
+            Text.text = "Waiting for all connections...";
+            waitTime -= 1;
+            yield return new WaitForSeconds(1);
+        }
+        if (isServer) { CmdStartGame(); }
+            
     }
 
     void UnRestrictPlayers()
@@ -76,21 +74,6 @@ public class GameManager : NetworkBehaviour
         {
             obj.GetComponent<PlayerMovement>().isEnabled = true;
         }
-    }
-
-    IEnumerator RestrictPlayers()
-    {
-        while (!AllConnected)
-        {
-            yield return null;
-        }
-        GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject obj in Players)
-        {
-            obj.GetComponent<PlayerMovement>().isEnabled = true;
-            yield return null;
-        }
-
     }
 
 
@@ -130,34 +113,9 @@ public class GameManager : NetworkBehaviour
     private bool OnePlayerLeft()
     {
         GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
-        return Players.Length == 1 && numConnected > 1;
+        return Players.Length == 1;
     }
 
-    /*
-    private IEnumerator GameLoop()
-    { 
-        Text.text = "PLAY!";
-
-        // Keep playing until there is one player left
-        while (!OnePlayerLeft())
-        {
-            yield return null;
-        }
-
-        Text.text = "GAME OVER!";
-    }
-
-    private IEnumerator Countdown()
-    {
-        while (countdownTime > 0)
-        {
-            Text.text = "Starting Game in " + Mathf.Round(countdownTime) + " seconds.";
-            yield return new WaitForSeconds(1);
-            countdownTime -= 1;
-        }
-    }
-    */
-
-
+ 
 
 }

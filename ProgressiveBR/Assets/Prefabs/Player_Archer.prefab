@@ -480,6 +480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa25b9505edae4438903ac52f51cbf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnabled: 0
   speed: 10
   jumpSpeed: 0
   gravity: 20
@@ -602,7 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a20c2caa0d07fe49b28d337345fe711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xpPerKill: 0.25
+  xpPerKill: 0.5
   playerHealth: 100
   isAlive: 1
   hpBar: {fileID: 7072973542568509855}
@@ -644,6 +645,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1642668146854666537}
     m_Modifications:
+    - target: {fileID: 100000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
+      propertyPath: m_Name
+      value: Archer Warrior
+      objectReference: {fileID: 0}
     - target: {fileID: 9590292, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -695,10 +700,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
-      propertyPath: m_Name
-      value: Archer Warrior
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11490294, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
