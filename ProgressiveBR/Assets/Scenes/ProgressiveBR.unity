@@ -3096,7 +3096,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Text: {fileID: 757375159}
   minimumPlayers: 2
-  countdownTime: 10
+  countdownTime: 3
 --- !u!114 &1782791269
 MonoBehaviour:
   m_ObjectHideFlags: 0

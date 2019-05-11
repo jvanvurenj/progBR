@@ -63,9 +63,10 @@ public class GameManager : NetworkBehaviour
         }
         if (isServer)
         {
-            gameInProgress = true;
             CmdStartGame();
+            
         }
+        gameInProgress = true;
         CmdCheckForWin();
 
     }
@@ -85,10 +86,10 @@ public class GameManager : NetworkBehaviour
     else
     {
       int waitTime = 3;
-      while (isServer && waitTime > 0)
+      while (waitTime  > 0)
       {
 
-      Text.text = "round over!. . . Resetting in: " + waitTime.ToString();
+      Text.text = "round over!... Resetting in: " + waitTime.ToString();
       waitTime -= 1;
       yield return new WaitForSeconds(1);
 
