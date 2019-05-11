@@ -1,17 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
 
 public class GameManager : NetworkBehaviour
 {
+    // How many rounds till we stop?
+    public static int numRounds = 10;
     public Text Text;
     public int minimumPlayers = 4;
     public int countdownTime = 4;
     private int numConnected;
     bool AllConnected = false;
+    bool gameInProgress = false;
 
     void Start()
     {
@@ -20,41 +24,35 @@ public class GameManager : NetworkBehaviour
 
 
     [Command]
-    public void CmdStartGame()
-    {
-        RpcStartGame();
-    }
+    public void CmdStartGame(){RpcStartGame();}
 
     [ClientRpc]
-    public void RpcStartGame()
-    {
-        StartCoroutine(CountDown(countdownTime));
-    }
+    public void RpcStartGame(){StartCoroutine(CountDown(countdownTime));}
 
     [Command]
-    public void CmdUnrestrict()
-    {
-        RpcUnrestrict();
-    }
+    public void CmdCheckForWin() { RpcCheckForWin(); }
 
     [ClientRpc]
-    public void RpcUnrestrict()
-    {
-        UnRestrictPlayers();
-    }
+    public void RpcCheckForWin() { StartCoroutine(CheckForWinner()); }
+
+    [Command]
+    public void CmdUnrestrict(){RpcUnrestrict();}
+
+    [ClientRpc]
+    public void RpcUnrestrict(){UnRestrictPlayers();}
 
 
     IEnumerator WaitForPlayers()
     {
         // Wait to start game until minimum players are connected
         int connected = GetConnectionCount();
-
         while (isServer && connected < minimumPlayers)
         {
             connected = GetConnectionCount();
             Text.text = "Waiting for players to connect...\n" + connected + " players connected.";
             yield return null;
         }
+
         // Delay to account for latency lag
         int waitTime = 2;
         while(isServer && waitTime > 0)
@@ -63,9 +61,49 @@ public class GameManager : NetworkBehaviour
             waitTime -= 1;
             yield return new WaitForSeconds(1);
         }
-        if (isServer) { CmdStartGame(); }
-            
+        if (isServer)
+        {
+            gameInProgress = true;
+            CmdStartGame();
+        }
+        CmdCheckForWin();
+
     }
+
+    IEnumerator CheckForWinner()
+    {
+        // Just have the server observe
+            // Loop while game is in progress.
+    while (gameInProgress)
+            {
+                // More that one player still alive.
+     if (!OnePlayerLeft())
+     {
+        yield return null;
+     }
+                // Last player has won, reset round.
+    else
+    {
+      int waitTime = 3;
+      while (isServer && waitTime > 0)
+      {
+
+      Text.text = "round over!. . . Resetting in: " + waitTime.ToString();
+      waitTime -= 1;
+      yield return new WaitForSeconds(1);
+
+      }
+      Text.text = "";
+      numRounds += 1;
+      if (isServer)
+      {
+       NetworkManager.singleton.ServerChangeScene("ProgressiveBR");
+      }
+        gameInProgress = false;
+        }
+     }
+    }
+
 
     void UnRestrictPlayers()
     {
@@ -90,9 +128,13 @@ public class GameManager : NetworkBehaviour
         Text.text = "Start!";
         yield return new WaitForSeconds(.25f);
         Text.text = "";
-        CmdUnrestrict();
-
+        if (isServer)
+        {
+            CmdUnrestrict();
+        }
     }
+
+
 
     // Count the number of players connected to the server, avoiding nulls
     int GetConnectionCount()
@@ -102,6 +144,7 @@ public class GameManager : NetworkBehaviour
         {
             if (p != null)
             {
+                //print(p.connectionId);
                 numConnected++;
             }
         }
@@ -113,7 +156,7 @@ public class GameManager : NetworkBehaviour
     private bool OnePlayerLeft()
     {
         GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
-        return Players.Length == 1;
+        return (Players.Length == 1);
     }
 
  

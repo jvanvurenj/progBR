@@ -13,7 +13,7 @@ public class PlayerMovement : NetworkBehaviour
     CharacterController characterController;
 
     public bool isEnabled = false;
-
+    public NetworkInstanceId playerID;
     public float speed = 6.0f;
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
@@ -27,9 +27,8 @@ public class PlayerMovement : NetworkBehaviour
             return;
         }
         characterController = GetComponent<CharacterController>();
+        playerID = GetComponent<NetworkIdentity>().netId;
     }
-
-
 
 
     void Update()

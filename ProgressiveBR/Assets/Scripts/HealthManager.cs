@@ -8,16 +8,14 @@ public class HealthManager : NetworkBehaviour
 {
 
     private float playerExperience = 0;
-
     // To be used later.
     private int playerLevel = 0;
-
     [SerializeField]
     private float xpPerKill = .5f;
-
     [SerializeField]
     private float playerHealth = 100;
     private float startingHP;
+    private Transform startingPosition;
     public bool isAlive = true;
     public Image hpBar;
     public Image xpBar;
@@ -28,33 +26,22 @@ public class HealthManager : NetworkBehaviour
     }
 
     [Command]
-    public void CmdHpBar(float amt)
-    {
-        RpcHpBar(amt);
-    }
+    public void CmdHpBar(float amt){RpcHpBar(amt);}
 
     [ClientRpc]
-    public void RpcHpBar(float amt)
-    {
-        
-        hpBar.fillAmount = amt;
-       
-
-    }
+    public void RpcHpBar(float amt){hpBar.fillAmount = amt;}
 
     [Command]
-    public void CmdXpBar(float amt)
-    {
-        RpcXpBar(amt);
-    }
+    public void CmdXpBar(float amt){RpcXpBar(amt);}
 
     [ClientRpc]
-    public void RpcXpBar(float amt)
-    {
-        
-        xpBar.fillAmount = amt;
+    public void RpcXpBar(float amt){xpBar.fillAmount = amt;}
 
-    }
+    [Command]
+    public void CmdDeactivate(){RpcDeactivate();}
+
+    [ClientRpc]
+    public void RpcDeactivate(){this.gameObject.SetActive(false);}
 
 
     public void GainExperience(float amt)
@@ -71,6 +58,7 @@ public class HealthManager : NetworkBehaviour
     }
 
 
+
     public void TakeDamage(float amt, GameObject sender)
     {
 
@@ -82,12 +70,10 @@ public class HealthManager : NetworkBehaviour
 
         if(playerHealth <= 0)
         {
-            // Perform other logics like giving points to whoever killed this person
-            // Network operations needed to remove prefabs , etc
-            // 1/4 a leve
             sender.GetComponent<HealthManager>().GainExperience(xpPerKill);
+            CmdDeactivate();
+            this.gameObject.SetActive(false);
 
-            Destroy(this.gameObject);
         }
     }
 
