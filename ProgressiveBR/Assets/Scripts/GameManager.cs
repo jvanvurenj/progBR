@@ -64,10 +64,11 @@ public class GameManager : NetworkBehaviour
         if (isServer)
         {
             CmdStartGame();
-            
+            yield return new WaitForSeconds(1);
+            gameInProgress = true;
+            CmdCheckForWin();
         }
-        gameInProgress = true;
-        CmdCheckForWin();
+        
 
     }
 
@@ -76,33 +77,32 @@ public class GameManager : NetworkBehaviour
         // Just have the server observe
             // Loop while game is in progress.
     while (gameInProgress)
-            {
-                // More that one player still alive.
-     if (!OnePlayerLeft())
-     {
-        yield return null;
-     }
-                // Last player has won, reset round.
-    else
     {
-      int waitTime = 3;
-      while (waitTime  > 0)
-      {
-
-      Text.text = "round over!... Resetting in: " + waitTime.ToString();
-      waitTime -= 1;
-      yield return new WaitForSeconds(1);
-
-      }
-      Text.text = "";
-      numRounds += 1;
-      if (isServer)
-      {
-       NetworkManager.singleton.ServerChangeScene("ProgressiveBR");
-      }
+                // More that one player still alive.
+        if (!OnePlayerLeft())
+        {
+        yield return null;
+        }
+                // Last player has won, reset round.
+        else
+        {
+        int waitTime = 3;
+        while (waitTime  > 0)
+            {
+            Text.text = "round over!... Resetting in: " + waitTime.ToString();
+            waitTime -= 1;
+            yield return new WaitForSeconds(1);
+            }
+        Text.text = "";
+        numRounds += 1;
+        if (isServer)
+        {
+            NetworkManager.singleton.ServerChangeScene("ProgressiveBR");
+        }
         gameInProgress = false;
         }
-     }
+    }
+
     }
 
 
