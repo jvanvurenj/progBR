@@ -11,6 +11,7 @@ public class DestroyOnHit : NetworkBehaviour
 
     // Who shot this projectile
     public GameObject projectileOwner;
+    public GameObject impactEffect;
 
     void Start()
     {
@@ -24,8 +25,23 @@ public class DestroyOnHit : NetworkBehaviour
         {
             other.GetComponent<HealthManager>().TakeDamage(damage, projectileOwner);
         }
+        
+        if(impactEffect != null)
+        {
+            CmdImpact();
+        }
         // We also can Instantiate a prefab here on the collider hitpoint such as an explosion.
         // Delete after performing all needed steps.
         Destroy(this.gameObject);
+    }
+
+    [Command]
+    public void CmdImpact()
+    {
+
+        GameObject explosion = Instantiate(impactEffect, transform.position, Quaternion.identity);
+        NetworkServer.Spawn(explosion);
+        Destroy(explosion, 1f);
+        return;
     }
 }

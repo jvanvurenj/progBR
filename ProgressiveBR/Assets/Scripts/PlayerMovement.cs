@@ -11,7 +11,7 @@ using UnityEngine.Networking;
 public class PlayerMovement : NetworkBehaviour
 {
     CharacterController characterController;
-
+    public Animator characterAnimator;
     public bool isEnabled = false;
     public NetworkInstanceId playerID;
     public float speed = 6.0f;
@@ -55,6 +55,15 @@ public class PlayerMovement : NetworkBehaviour
         // when the moveDirection is multiplied by deltaTime). This is because gravity should be applied
         // as an acceleration (ms^-2)
         moveDirection.y -= gravity * Time.deltaTime;
+
+        if(Mathf.Sqrt(Mathf.Pow(moveDirection.x,2)) > 0 || Mathf.Sqrt(Mathf.Pow(moveDirection.z, 2)) > 0)
+        {
+            characterAnimator.SetBool("Moving", true);
+        }
+        else
+        {
+            characterAnimator.SetBool("Moving", false);
+        }
 
         // Move the controller
         characterController.Move(moveDirection * Time.deltaTime);

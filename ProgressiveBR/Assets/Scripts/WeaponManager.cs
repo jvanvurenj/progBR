@@ -7,6 +7,8 @@ using UnityEngine.Networking;
 
 public class WeaponManager : NetworkBehaviour
 {
+ 
+    
     //private GameObject prefabSpawner;
     public int projectileSpeed = 300;
     // How fast the player c
@@ -15,20 +17,19 @@ public class WeaponManager : NetworkBehaviour
     // Animator for player controller
     [SerializeField]
     Animator _animator;
-
     // Firepoint locations for instantiating prefabs
     [SerializeField]
     private GameObject firePoint;
-
  
     // Prefabs for projectiles
     [SerializeField]
     private GameObject arrowPrefab;
     [SerializeField]
+    private GameObject fireballPrefab;
+
+    [SerializeField]
     private GameObject NetPrefab;
-
     private Camera playerCamera;
-
     private float timer;
     private bool isAlive = true;
 
@@ -72,16 +73,10 @@ public class WeaponManager : NetworkBehaviour
 
     private void Fire()
     {
-        // Enable animation for player shooting.
-        //_animator.SetTrigger("Fire");
-        //GameObject prefabSpawner = Instantiate(NetPrefab);
-        //prefabSpawner.GetComponent<prefabSpawn>().CmdArrow(this.gameObject, projectileSpeed);
-        CmdArrow();
-        
-        //GameObject spawnedArrow = Instantiate(arrowPrefab, firePoint.transform.position, firePoint.transform.rotation);
-        //spawnedArrow.GetComponent<Rigidbody>().AddForce(spawnedArrow.transform.forward * projectileSpeed);
-        //NetworkServer.Spawn(spawnedArrow);
-
+        _animator.SetTrigger("Attack");
+        //CmdArrow();
+        CmdFireBall();
+ 
     }
     
     public void SetProjectileSpeed(int speed)
@@ -100,4 +95,16 @@ public class WeaponManager : NetworkBehaviour
         NetworkServer.Spawn(spawnedArrow);
         return;
     }
+
+    [Command]
+    public void CmdFireBall()
+    {
+
+        GameObject spawnedFB = Instantiate(fireballPrefab, firePoint.transform.position, firePoint.transform.rotation);
+        spawnedFB.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
+        spawnedFB.GetComponent<Rigidbody>().AddForce(spawnedFB.transform.forward * projectileSpeed);
+        NetworkServer.Spawn(spawnedFB);
+        return;
+    }
+
 }
