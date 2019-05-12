@@ -69,7 +69,6 @@ public class GameManager : NetworkBehaviour
             CmdCheckForWin();
         }
         
-
     }
 
     IEnumerator CheckForWinner()
@@ -89,7 +88,7 @@ public class GameManager : NetworkBehaviour
         int waitTime = 3;
         while (waitTime  > 0)
             {
-            Text.text = "round over!... Resetting in: " + waitTime.ToString();
+            Text.text = "round over!... Returnig to lobby in: " + waitTime.ToString();
             waitTime -= 1;
             yield return new WaitForSeconds(1);
             }
@@ -97,7 +96,7 @@ public class GameManager : NetworkBehaviour
         numRounds += 1;
         if (isServer)
         {
-            NetworkManager.singleton.ServerChangeScene("ProgressiveBR");
+            NetworkManager.singleton.ServerChangeScene("Lobby");
         }
         gameInProgress = false;
         }
