@@ -585,6 +585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d9432fb852462945bbb6b090825550f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageModifer: 1
   projectileSpeed: 300
   fireRate: 1
   _animator: {fileID: 5923423336963696259}
@@ -607,8 +608,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a20c2caa0d07fe49b28d337345fe711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillLevels: 0
   xpPerKill: 0.5
   playerHealth: 100
+  dmgIncreaseAmt: 0.5
   isAlive: 1
   hpBar: {fileID: 7072973542568509855}
   xpBar: {fileID: 215558126001707265}
@@ -715,7 +718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9590292, guid: bad0018eb9256e6409155981dd5af9a2, type: 3}
       propertyPath: m_CullingMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 126160, guid: bad0018eb9256e6409155981dd5af9a2, type: 3}
       propertyPath: m_IsActive
@@ -749,14 +752,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
       propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9590292, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9590292, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
-      propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
@@ -801,6 +796,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9590292, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9590292, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
+      propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 125040, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}

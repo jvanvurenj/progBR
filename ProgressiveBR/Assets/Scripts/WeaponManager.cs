@@ -7,8 +7,8 @@ using UnityEngine.Networking;
 
 public class WeaponManager : NetworkBehaviour
 {
- 
-    
+
+    public float damageModifer = 0f;
     //private GameObject prefabSpawner;
     public int projectileSpeed = 300;
     // How fast the player c
@@ -45,7 +45,6 @@ public class WeaponManager : NetworkBehaviour
         if (!isLocalPlayer || !GetComponent<PlayerMovement>().isEnabled) { return; }
 
         PointToMouse();
-
         timer += Time.deltaTime;
         if (timer >= fireRate)
         {
@@ -58,6 +57,8 @@ public class WeaponManager : NetworkBehaviour
 
         
     }
+
+   
 
     private void PointToMouse()
     {
@@ -91,6 +92,7 @@ public class WeaponManager : NetworkBehaviour
         
         GameObject spawnedArrow = Instantiate(arrowPrefab, firePoint.transform.position, firePoint.transform.rotation);
         spawnedArrow.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
+        spawnedArrow.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
         spawnedArrow.GetComponent<Rigidbody>().AddForce(spawnedArrow.transform.forward * projectileSpeed);
         NetworkServer.Spawn(spawnedArrow);
         return;
@@ -102,6 +104,7 @@ public class WeaponManager : NetworkBehaviour
 
         GameObject spawnedFB = Instantiate(fireballPrefab, firePoint.transform.position, firePoint.transform.rotation);
         spawnedFB.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
+        spawnedFB.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
         spawnedFB.GetComponent<Rigidbody>().AddForce(spawnedFB.transform.forward * projectileSpeed);
         NetworkServer.Spawn(spawnedFB);
         return;

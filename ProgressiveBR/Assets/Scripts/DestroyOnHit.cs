@@ -19,6 +19,11 @@ public class DestroyOnHit : NetworkBehaviour
         Destroy(gameObject, 3f);
     }
 
+    public void AddDmg(float d)
+    {
+        damage = damage+d;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
