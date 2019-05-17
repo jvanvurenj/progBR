@@ -8,14 +8,14 @@ public class HealthManager : NetworkBehaviour
 {
     private float playerExperience = 0;
     // To be used later.
-    private int playerLevel = 0; // Start off with 1 for now.
+    public TextMesh lvl;
+    public int playerLevel = 1; // Start off with 1 for now.
     public int skillLevels = 1;
     [SerializeField]
     private float xpPerKill = .99f;
     [SerializeField]
     private float playerHealth = 100;
     private float startingHP;
-
     [SerializeField]
     private float dmgIncreaseAmt = .5f;
 
@@ -29,6 +29,7 @@ public class HealthManager : NetworkBehaviour
     private void Start()
     {
         startingHP = playerHealth;
+        lvl.text = playerLevel.ToString();
     }
 
 
@@ -43,6 +44,12 @@ public class HealthManager : NetworkBehaviour
 
     [ClientRpc]
     public void RpcXpBar(float amt){xpBar.fillAmount = amt;}
+
+    [Command]
+    public void CmdLvl(int level) { RpcLvl(level); }
+
+    [ClientRpc]
+    public void RpcLvl(int level) { lvl.text = level.ToString(); }
 
     [Command]
     public void CmdDeactivate(){RpcDeactivate();}
@@ -80,6 +87,8 @@ public class HealthManager : NetworkBehaviour
             playerExperience = 0;
             playerLevel += 1;
             skillLevels += 1;
+            lvl.text = playerLevel.ToString();
+            CmdLvl(playerLevel);
             // Give level up stuff
         }
         xpBar.fillAmount = playerExperience;
