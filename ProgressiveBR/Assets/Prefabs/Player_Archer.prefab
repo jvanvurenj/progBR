@@ -720,6 +720,10 @@ PrefabInstance:
       propertyPath: m_CullingMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9590292, guid: bad0018eb9256e6409155981dd5af9a2, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9fa2ef7307097ef47ae776ba1591b81a, type: 2}
     - target: {fileID: 126160, guid: bad0018eb9256e6409155981dd5af9a2, type: 3}
       propertyPath: m_IsActive
       value: 1
