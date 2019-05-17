@@ -57,7 +57,7 @@ public class GameManager : NetworkBehaviour
         int waitTime = 2;
         while(isServer && waitTime > 0)
         {
-            Text.text = "Waiting for all connections...";
+            Text.text = "Waiting for players to connect...";
             waitTime -= 1;
             yield return new WaitForSeconds(1);
         }
@@ -88,7 +88,7 @@ public class GameManager : NetworkBehaviour
         int waitTime = 3;
         while (waitTime  > 0)
             {
-            Text.text = "round over!... Returnig to lobby in: " + waitTime.ToString();
+            Text.text = "ROUND OVER!\n" + " Returning to lobby in: " + waitTime.ToString();
             waitTime -= 1;
             yield return new WaitForSeconds(1);
             }
@@ -119,13 +119,13 @@ public class GameManager : NetworkBehaviour
     {
         // Countdown for game to begin
         int cooldown = n;
-        while(cooldown >= 0)
+        while(cooldown > 0)
         {
-            Text.text = "Starting game in " + Mathf.Round(cooldown) + " seconds";
+            Text.text = "Starting in: \n" + Mathf.Round(cooldown);
             cooldown -= 1;
             yield return new WaitForSeconds(1f);
         }
-        Text.text = "Start!";
+        Text.text = "START!";
         yield return new WaitForSeconds(.25f);
         Text.text = "";
         if (isServer)
