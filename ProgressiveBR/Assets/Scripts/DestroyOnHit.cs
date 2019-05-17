@@ -26,6 +26,10 @@ public class DestroyOnHit : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject == projectileOwner)
+        {
+            return;
+        }
         if (other.tag == "Player")
         {
             other.GetComponent<HealthManager>().TakeDamage(damage, projectileOwner);
