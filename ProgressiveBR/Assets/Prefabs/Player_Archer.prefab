@@ -485,7 +485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAnimator: {fileID: 5923423336963696259}
   isEnabled: 0
-  speed: 10
+  speed: 6
   jumpSpeed: 0
   gravity: 20
   MyCamera: {fileID: 0}
@@ -616,6 +616,7 @@ MonoBehaviour:
   skillLevels: 0
   xpPerKill: 1
   dmgIncreaseAmt: 0.5
+  anim: {fileID: 5923423336963696259}
   isAlive: 1
   hpBar: {fileID: 7072973542568509855}
   xpBar: {fileID: 215558126001707265}
