@@ -13,7 +13,7 @@ public class HealthManager : NetworkBehaviour
     public int skillLevels = 1;
     [SerializeField]
     private float xpPerKill = .99f;
-    [SerializeField]
+    [SyncVar]
     private float playerHealth = 100;
     private float startingHP;
     [SerializeField]
@@ -113,6 +113,10 @@ public class HealthManager : NetworkBehaviour
     public void TakeDamage(float amt, GameObject sender)
     {
 
+        if(sender == this.gameObject)
+        {
+            return;
+        }
        
         playerHealth -= amt;
         hpBar.fillAmount = playerHealth / startingHP;
