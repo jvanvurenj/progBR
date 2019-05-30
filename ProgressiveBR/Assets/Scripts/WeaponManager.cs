@@ -14,6 +14,13 @@ public class WeaponManager : NetworkBehaviour
     // How fast the player c
     [SerializeField]
     private float fireRate = 1;
+
+    [SerializeField]
+    private float skill1fireRate = 4;
+    [SerializeField]
+    private float skill2fireRate = 4;
+    [SerializeField]
+    private float skill3fireRate = 4;
     // Animator for player controller
     [SerializeField]
     Animator _animator;
@@ -31,6 +38,9 @@ public class WeaponManager : NetworkBehaviour
     private GameObject NetPrefab;
     private Camera playerCamera;
     private float timer;
+    private float skill1timer;
+    private float skill2timer;
+    private float skill3timer;
     private bool isAlive = true;
 
 
@@ -46,6 +56,9 @@ public class WeaponManager : NetworkBehaviour
 
         PointToMouse();
         timer += Time.deltaTime;
+        skill1timer +=Time.deltaTime;
+        skill2timer +=Time.deltaTime;
+        skill3timer +=Time.deltaTime;
         if (timer >= fireRate)
         {
             if (Input.GetButton("Fire1"))
@@ -53,6 +66,45 @@ public class WeaponManager : NetworkBehaviour
                 timer = 0f;
                 Fire();
             }
+        }
+        if (Input.GetKeyDown("1")){
+            if (gameObject.GetComponent<HealthManager>().ManageSkill()){
+                //ASSIGN  ATTACK SKILLS AND STUFF
+                skill1timer = 0f;
+            }
+            else{
+                if(skill1timer >= skill1fireRate){
+                    //FireAttackSkill();
+                    skill1timer = 0f;
+                }
+            }
+            
+        }
+        if (Input.GetKeyDown("2")){
+            if (gameObject.GetComponent<HealthManager>().ManageSkill()){
+                //ASSIGN SKILLS AND STUFF
+                skill2timer = 0f;
+            }
+            else{
+                if(skill2timer >= skill2fireRate){
+                    //FireAttackSkill();
+                    skill2timer = 0f;
+                }
+            }
+            
+        }
+        if (Input.GetKeyDown("3")){
+            if (gameObject.GetComponent<HealthManager>().ManageSkill()){
+                //ASSIGN SKILLS AND STUFF
+                skill3timer = 0f;
+            }
+            else{
+                if(skill3timer >= skill3fireRate){
+                    //FireAttackSkill();
+                    skill3timer = 0f;
+                }
+            }
+            
         }
 
         

@@ -9,6 +9,7 @@ public class HealthManager : NetworkBehaviour
     private float playerExperience = 0;
     // To be used later.
     public TextMesh lvl;
+    public TextMesh skilltxt;
     public int playerLevel = 1; // Start off with 1 for now.
     public int skillLevels = 1;
     [SerializeField]
@@ -57,8 +58,36 @@ public class HealthManager : NetworkBehaviour
     [ClientRpc]
     public void RpcDeactivate(){this.gameObject.SetActive(false);}
 
+    [Command]
+    public void CmdSkillUp(){ RpcSkillUp(); }
 
-    // Example of skill level up, Increase damage or speed for now.
+    [ClientRpc]
+    public void RpcSkillUp(){ 
+        skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
+    }
+
+    [Command]
+    public void CmdSkillDown(){ RpcSkillDown(); }
+
+    [ClientRpc]
+    public void RpcSkillDown(){ 
+        //if (skillLevels <= 1){
+        skilltxt.text = "";
+        //}
+        skillLevels-=1;
+
+    }
+
+
+    public bool ManageSkill(){
+        if (skillLevels > 0){
+            CmdSkillDown();
+            return true;
+        }
+        return false;
+    }
+
+
     private void LevelUp(int s)
     {
         if (!isLocalPlayer) { return; }
@@ -89,6 +118,7 @@ public class HealthManager : NetworkBehaviour
             skillLevels += 1;
             lvl.text = playerLevel.ToString();
             CmdLvl(playerLevel);
+            CmdSkillUp();
             // Give level up stuff
         }
         xpBar.fillAmount = playerExperience;

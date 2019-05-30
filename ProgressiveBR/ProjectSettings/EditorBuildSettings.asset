@@ -5,7 +5,25 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/MiniGame.unity
-    guid: 52598b600dd185e41ac779fb1f838f30
+    path: Assets/Scenes/Lobby.unity
+    guid: 8147ff6ae99c14a3dacb983fa10331f6
+  - enabled: 1
+    path: Assets/Scenes/DesertBR.unity
+    guid: 1204fade956a84d3693266beec1f3720
+  - enabled: 1
+    path: Assets/Scenes/IslandBR.unity
+    guid: e25ca92f0bc4745039c071e6076dcc3b
+  - enabled: 1
+    path: Assets/Scenes/ProgressiveBR.unity
+    guid: cb8d90fface20ac45a081ed5f907b561
+  - enabled: 1
+    path: Assets/Scenes/SnowBR.unity
+    guid: 6f67205aa76cf4189bceea2dbb51abf1
+  - enabled: 1
+    path: Assets/Scenes/UrbanBR.unity
+    guid: b63bb3f1e9d4a495c8b670feca2b0a9a
   m_configObjects: {}
