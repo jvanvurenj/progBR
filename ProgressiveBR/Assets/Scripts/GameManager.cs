@@ -30,6 +30,12 @@ public class GameManager : NetworkBehaviour
     public void RpcStartGame(){StartCoroutine(CountDown(countdownTime));}
 
     [Command]
+    public void CmdLobby() { RpcLobby(); }
+
+    [ClientRpc]
+    public void RpcLobby() { StartCoroutine(LobbyCountDown(3)); }
+
+    [Command]
     public void CmdCheckForWin() { RpcCheckForWin(); }
 
     [ClientRpc]
@@ -68,7 +74,7 @@ public class GameManager : NetworkBehaviour
             gameInProgress = true;
             CmdCheckForWin();
         }
-        
+          
     }
 
     IEnumerator CheckForWinner()
@@ -80,25 +86,29 @@ public class GameManager : NetworkBehaviour
                 // More that one player still alive.
         if (!OnePlayerLeft())
         {
-        yield return null;
+            yield return null;
         }
                 // Last player has won, reset round.
         else
         {
-        int waitTime = 3;
-        while (waitTime  > 0)
+            int waitTime = 3;
+                if (isServer)
+                {
+                    CmdLobby();
+                }
+            while (waitTime  > 0)
             {
-            Text.text = "ROUND OVER!\n" + " Returning to lobby in: " + waitTime.ToString();
-            waitTime -= 1;
-            yield return new WaitForSeconds(1);
+                Text.text = "ROUND OVER!\n" + " Returning to lobby in: " + waitTime.ToString();
+                waitTime -= 1;
+                yield return new WaitForSeconds(1);
             }
-        Text.text = "";
-        numRounds += 1;
-        if (isServer)
-        {
-            NetworkManager.singleton.ServerChangeScene("Lobby");
-        }
-        gameInProgress = false;
+            Text.text = "";
+            numRounds += 1;
+            if (isServer)
+            {
+                NetworkManager.singleton.ServerChangeScene("Lobby");
+            }
+            gameInProgress = false;
         }
     }
 
@@ -132,6 +142,26 @@ public class GameManager : NetworkBehaviour
         {
             CmdUnrestrict();
         }
+    }
+
+    IEnumerator LobbyCountDown(int n)
+    {
+        // Countdown for game to begin
+        if (!OnePlayerLeft())
+        {
+            yield return null;
+        }
+
+        int cooldown = n;
+        while (cooldown > 0)
+        {
+            Text.text = "returning to lobby in: \n" + Mathf.Round(cooldown);
+            cooldown -= 1;
+            yield return new WaitForSeconds(1f);
+        }
+        yield return new WaitForSeconds(.25f);
+        Text.text = "";
+        
     }
 
 
