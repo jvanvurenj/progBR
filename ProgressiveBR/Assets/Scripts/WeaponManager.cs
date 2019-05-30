@@ -97,13 +97,13 @@ public class WeaponManager : NetworkBehaviour
         if (Input.GetKeyDown("1")){
             if (inputtimer>=inputRate){
                 if (gameObject.GetComponent<HealthManager>().ManageSkill()){
-                //ASSIGN  ATTACK SKILLS AND STUFF
+                    attackTag = Random.Range(1,4);
                     inputtimer = 0f;
                 }
             }
             else{
                 if(skill1timer >= skill1fireRate){
-                    //FireAttackSkill();
+                    //AttackSkill();
                     skill1timer = 0f;
                 }
             }
@@ -112,13 +112,13 @@ public class WeaponManager : NetworkBehaviour
         if (Input.GetKeyDown("2")){
             if (inputtimer>=inputRate){
                 if (gameObject.GetComponent<HealthManager>().ManageSkill()){
-                //ASSIGN  ATTACK SKILLS AND STUFF
+                    defenseTag = Random.Range(1,4);
                     inputtimer = 0f;
                 }
             }
             else{
                 if(skill2timer >= skill2fireRate){
-                    //FireAttackSkill();
+                    //DefenseSkill();
                     skill2timer = 0f;
                 }
             }
@@ -127,13 +127,13 @@ public class WeaponManager : NetworkBehaviour
         if (Input.GetKeyDown("3")){
             if (inputtimer>=inputRate){
                 if (gameObject.GetComponent<HealthManager>().ManageSkill()){
-                //ASSIGN  ATTACK SKILLS AND STUFF
+                    movementTag = Random.Range(1,4);
                     inputtimer = 0f;
                 }
             }
             else{
                 if(skill3timer >= skill3fireRate){
-                    //FireAttackSkill();
+                    //MovementSkill();
                     skill3timer = 0f;
                 }
             }
@@ -254,6 +254,20 @@ public class WeaponManager : NetworkBehaviour
         spawnedFFB.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
         spawnedFFB.GetComponent<Rigidbody>().AddForce(spawnedFFB.transform.forward * projectileSpeed);
         NetworkServer.Spawn(spawnedFFB);
+        return;
+    }
+
+    public void AttackSkill(){
+        //depending on attackTag, do something
+        return;
+    }
+
+    public void DefenseSkill(){
+        //depending on defenseTag, do something
+        return;
+    }
+    public void MovementSkill(){
+        //depending on movementTag, do something
         return;
     }
 }
