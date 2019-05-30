@@ -76,14 +76,19 @@ public class HealthManager : NetworkBehaviour
         //if (skillLevels <= 1){
         skilltxt.text = "";
         //}
-        skillLevels-=1;
 
     }
 
 
     public bool ManageSkill(){
+        skilltxt.text = "";
+        CmdSkillDown();
         if (skillLevels > 0){
-            CmdSkillDown();
+            skillLevels = 0;
+            //if (skillLevels>0){
+            //    skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
+            //    CmdSkillUp();
+            //}
             return true;
         }
         return false;
@@ -100,20 +105,20 @@ public class HealthManager : NetworkBehaviour
     {
         if (!isLocalPlayer) { return; }
         if (skillLevels <= 0) { return; }
-        skillLevels -= 1;
-        switch (s)
-        {
-            case 0:
-                // Increase damage.
-                GetComponent<WeaponManager>().damageModifer += dmgIncreaseAmt;
-                break;
-            case 1:
-                // Increase damage.
-                GetComponent<PlayerMovement>().speed += 2;
-                break;
-            default:
-                break;
-        }
+        //skillLevels -= 1;
+        // switch (s)
+        // {
+        //     case 0:
+        //         // Increase damage.
+        //         GetComponent<WeaponManager>().damageModifer += dmgIncreaseAmt;
+        //         break;
+        //     case 1:
+        //         // Increase damage.
+        //         GetComponent<PlayerMovement>().speed += 2;
+        //         break;
+        //     default:
+        //         break;
+        // }
     }
 
     public void GainExperience(float amt)
@@ -126,6 +131,7 @@ public class HealthManager : NetworkBehaviour
             skillLevels += 1;
             lvl.text = playerLevel.ToString();
             CmdLvl(playerLevel);
+            skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
             CmdSkillUp();
             // Give level up stuff
         }

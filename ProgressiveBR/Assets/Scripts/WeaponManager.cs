@@ -21,6 +21,8 @@ public class WeaponManager : NetworkBehaviour
     private float skill2fireRate = 4;
     [SerializeField]
     private float skill3fireRate = 4;
+    [SerializeField]
+    private float inputRate = 1;
     // Animator for player controller
     [SerializeField]
     Animator _animator;
@@ -41,6 +43,7 @@ public class WeaponManager : NetworkBehaviour
     private float skill1timer;
     private float skill2timer;
     private float skill3timer;
+    private float inputtimer;
     private bool isAlive = true;
 
     [Command]
@@ -64,6 +67,7 @@ public class WeaponManager : NetworkBehaviour
         skill1timer +=Time.deltaTime;
         skill2timer +=Time.deltaTime;
         skill3timer +=Time.deltaTime;
+        inputtimer +=Time.deltaTime;
         if (timer >= fireRate)
         {
             if (Input.GetButton("Fire1"))
@@ -73,9 +77,11 @@ public class WeaponManager : NetworkBehaviour
             }
         }
         if (Input.GetKeyDown("1")){
-            if (gameObject.GetComponent<HealthManager>().ManageSkill()){
+            if (inputtimer>=inputRate){
+                if (gameObject.GetComponent<HealthManager>().ManageSkill()){
                 //ASSIGN  ATTACK SKILLS AND STUFF
-                skill1timer = 0f;
+                    inputtimer = 0f;
+                }
             }
             else{
                 if(skill1timer >= skill1fireRate){
@@ -86,9 +92,11 @@ public class WeaponManager : NetworkBehaviour
             
         }
         if (Input.GetKeyDown("2")){
-            if (gameObject.GetComponent<HealthManager>().ManageSkill()){
-                //ASSIGN SKILLS AND STUFF
-                skill2timer = 0f;
+            if (inputtimer>=inputRate){
+                if (gameObject.GetComponent<HealthManager>().ManageSkill()){
+                //ASSIGN  ATTACK SKILLS AND STUFF
+                    inputtimer = 0f;
+                }
             }
             else{
                 if(skill2timer >= skill2fireRate){
@@ -99,9 +107,11 @@ public class WeaponManager : NetworkBehaviour
             
         }
         if (Input.GetKeyDown("3")){
-            if (gameObject.GetComponent<HealthManager>().ManageSkill()){
-                //ASSIGN SKILLS AND STUFF
-                skill3timer = 0f;
+            if (inputtimer>=inputRate){
+                if (gameObject.GetComponent<HealthManager>().ManageSkill()){
+                //ASSIGN  ATTACK SKILLS AND STUFF
+                    inputtimer = 0f;
+                }
             }
             else{
                 if(skill3timer >= skill3fireRate){
