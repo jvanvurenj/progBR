@@ -10,6 +10,7 @@ public class DestroyOnHit : NetworkBehaviour
     private float damage = 0;
 
     // Who shot this projectile
+    [SyncVar]
     public GameObject projectileOwner;
     public GameObject impactEffect;
 
@@ -30,6 +31,7 @@ public class DestroyOnHit : NetworkBehaviour
         {
             return;
         }
+
         if (other.tag == "Player")
         {
             other.GetComponent<HealthManager>().TakeDamage(damage, projectileOwner);
