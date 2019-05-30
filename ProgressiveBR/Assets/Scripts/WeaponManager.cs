@@ -33,6 +33,11 @@ public class WeaponManager : NetworkBehaviour
     private float timer;
     private bool isAlive = true;
 
+    [Command]
+    public void CmdAnimateAttack(string att) { RpcAnimateAttack(att); }
+
+    [ClientRpc]
+    public void RpcAnimateAttack(string att) { _animator.SetTrigger(att); }
 
     private void Start()
     {
@@ -74,7 +79,27 @@ public class WeaponManager : NetworkBehaviour
 
     private void Fire()
     {
-        _animator.SetTrigger("Attack");
+        int r = Random.Range(0, 2);
+        switch (r)
+        {
+            case (0):
+                _animator.SetTrigger("Attack");
+                CmdAnimateAttack("Attack");
+                break;
+            case (1):
+                _animator.SetTrigger("Attack2");
+                CmdAnimateAttack("Attack2");
+                break;
+            case (2):
+                _animator.SetTrigger("Attack3");
+                CmdAnimateAttack("Attack3");
+                break;
+            default:
+                _animator.SetTrigger("Attack");
+                CmdAnimateAttack("Attack");
+                break;
+        }
+        
         //CmdArrow();
         CmdFireBall();
  

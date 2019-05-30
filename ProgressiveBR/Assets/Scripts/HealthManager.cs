@@ -19,6 +19,8 @@ public class HealthManager : NetworkBehaviour
     [SerializeField]
     private float dmgIncreaseAmt = .5f;
 
+    public Animator anim;
+
 
     private Transform startingPosition;
     public bool isAlive = true;
@@ -56,6 +58,12 @@ public class HealthManager : NetworkBehaviour
 
     [ClientRpc]
     public void RpcDeactivate(){this.gameObject.SetActive(false);}
+
+    [Command]
+    public void CmdAnimateDeath() { RpcAnimateDeath(); }
+
+    [ClientRpc]
+    public void RpcAnimateDeath() { anim.SetTrigger("Death"); }
 
 
     // Example of skill level up, Increase damage or speed for now.
@@ -110,6 +118,13 @@ public class HealthManager : NetworkBehaviour
 
     }
 
+    IEnumerator Deactivate()
+    {
+        yield return new WaitForSeconds(2f);
+        this.gameObject.SetActive(false);
+        CmdDeactivate();
+    }
+
     public void TakeDamage(float amt, GameObject sender)
     {
 
@@ -125,9 +140,11 @@ public class HealthManager : NetworkBehaviour
 
         if(playerHealth <= 0)
         {
+            hpBar.gameObject.SetActive(false);
+            anim.SetTrigger("Death");
+            CmdAnimateDeath();
             sender.GetComponent<HealthManager>().GainExperience(xpPerKill);
-            CmdDeactivate();
-            this.gameObject.SetActive(false);
+            StartCoroutine(Deactivate());
 
         }
     }
