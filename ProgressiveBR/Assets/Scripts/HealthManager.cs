@@ -89,6 +89,7 @@ public class HealthManager : NetworkBehaviour
         return false;
     }
 
+    [Command]
     public void CmdAnimateDeath() { RpcAnimateDeath(); }
 
     [ClientRpc]
