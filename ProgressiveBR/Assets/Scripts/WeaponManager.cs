@@ -35,6 +35,12 @@ public class WeaponManager : NetworkBehaviour
     private GameObject arrowPrefab;
     [SerializeField]
     private GameObject fireballPrefab;
+    [SerializeField]
+    private GameObject lightningPrefab;
+    [SerializeField]
+    private GameObject soulPrefab;
+    [SerializeField]
+    private GameObject frostPrefab;
 
     [SerializeField]
     private GameObject NetPrefab;
@@ -141,29 +147,37 @@ public class WeaponManager : NetworkBehaviour
 
     private void Fire()
     {
-        int r = Random.Range(0, 2);
+        int r = Random.Range(0, 4);
         switch (r)
         {
             case (0):
-                _animator.SetTrigger("Attack");
+                //_animator.SetTrigger("Attack");
                 CmdAnimateAttack("Attack");
+                CmdFireBall();
                 break;
             case (1):
-                _animator.SetTrigger("Attack2");
+                //_animator.SetTrigger("Attack2");
                 CmdAnimateAttack("Attack2");
+                CmdLightning();
                 break;
             case (2):
-                _animator.SetTrigger("Attack3");
+                //_animator.SetTrigger("Attack3");
                 CmdAnimateAttack("Attack3");
+                CmdSoul();
+                break;
+            case (3):
+                //_animator.SetTrigger("Attack4");
+                CmdAnimateAttack("Attack3");
+                CmdFrost();
                 break;
             default:
-                _animator.SetTrigger("Attack");
+                //_animator.SetTrigger("Attack");
                 CmdAnimateAttack("Attack");
+                CmdFireBall();
                 break;
         }
         
-        //CmdArrow();
-        CmdFireBall();
+        
  
     }
     
@@ -197,4 +211,37 @@ public class WeaponManager : NetworkBehaviour
         return;
     }
 
+    [Command]
+    public void CmdLightning()
+    {
+
+        GameObject spawnedLB = Instantiate(lightningPrefab, firePoint.transform.position, firePoint.transform.rotation);
+        spawnedLB.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
+        spawnedLB.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
+        spawnedLB.GetComponent<Rigidbody>().AddForce(spawnedLB.transform.forward * projectileSpeed);
+        NetworkServer.Spawn(spawnedLB);
+        return;
+    }
+    [Command]
+    public void CmdSoul()
+    {
+
+        GameObject spawnedSB = Instantiate(soulPrefab, firePoint.transform.position, firePoint.transform.rotation);
+        spawnedSB.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
+        spawnedSB.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
+        spawnedSB.GetComponent<Rigidbody>().AddForce(spawnedSB.transform.forward * projectileSpeed);
+        NetworkServer.Spawn(spawnedSB);
+        return;
+    }
+    [Command]
+    public void CmdFrost()
+    {
+
+        GameObject spawnedFFB = Instantiate(frostPrefab, firePoint.transform.position, firePoint.transform.rotation);
+        spawnedFFB.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
+        spawnedFFB.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
+        spawnedFFB.GetComponent<Rigidbody>().AddForce(spawnedFFB.transform.forward * projectileSpeed);
+        NetworkServer.Spawn(spawnedFFB);
+        return;
+    }
 }

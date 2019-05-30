@@ -590,11 +590,20 @@ MonoBehaviour:
   damageModifer: 1
   projectileSpeed: 300
   fireRate: 1
+  skill1fireRate: 4
+  skill2fireRate: 4
+  skill3fireRate: 4
   _animator: {fileID: 5923423336963696259}
   firePoint: {fileID: 2588257571941685983}
   arrowPrefab: {fileID: 1764349242985454425, guid: 64fc12c083e037d47ad816f3f6c2c712,
     type: 3}
   fireballPrefab: {fileID: 3748656114196998960, guid: 1c8aa18da2e15c644a46600e007b02db,
+    type: 3}
+  lightningPrefab: {fileID: 7426557314112266139, guid: 98adcac373741dd408e8376527ec688e,
+    type: 3}
+  soulPrefab: {fileID: 7044776667063861653, guid: 674f2c34b843bb143ac4644da6816e9f,
+    type: 3}
+  frostPrefab: {fileID: 161879989419787148, guid: e6e4ad641b3d42e498d9ec5d3a581114,
     type: 3}
   NetPrefab: {fileID: 6433841604317673523, guid: 9784348becbdc6540bff0a46c96cf580,
     type: 3}
