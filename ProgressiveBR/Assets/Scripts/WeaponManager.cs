@@ -58,9 +58,9 @@ public class WeaponManager : NetworkBehaviour
     private int defenseTag = 0;
     private int movementTag = 0;
 
-    private int[] skill1fireRate = new int[3]{10, 4, 10}; 
-    private int[] skill2fireRate = new int[3]{6, 10, 15};
-    private int[] skill3fireRate = new int[3]{6, 10, 15};
+    private int[] skill1fireRate = new int[4]{0, 10, 4, 10}; 
+    private int[] skill2fireRate = new int[4]{0, 6, 10, 15};
+    private int[] skill3fireRate = new int[4]{0, 6, 10, 15};
 
 
 
@@ -95,11 +95,12 @@ public class WeaponManager : NetworkBehaviour
         }
         if (Input.GetKeyDown("1")){
             if (gameObject.GetComponent<HealthManager>().ManageSkill()){
-                attackTag = Random.Range(1,4);
+                //attackTag = Random.Range(1,4);
+                attackTag = 2;
             }
             else{
                 if(skill1timer >= skill1fireRate[attackTag]){
-                    //AttackSkill();
+                    AttackSkill();
                     skill1timer = 0f;
                 }
             }
@@ -146,6 +147,12 @@ public class WeaponManager : NetworkBehaviour
     private void DefenseSkill(){
         if (defenseTag == 1){
             gameObject.GetComponent<HealthManager>().GainShield(shieldAmount);
+        }
+    }
+    private void AttackSkill(){
+        if (attackTag == 2){
+            CmdAnimateAttack("Attack");
+            CmdDoubleFireBall();
         }
     }
 
@@ -230,6 +237,24 @@ public class WeaponManager : NetworkBehaviour
     }
 
     [Command]
+    public void CmdDoubleFireBall()
+    {
+
+        GameObject spawnedFB = Instantiate(fireballPrefab, firePoint.transform.position+new Vector3(0.0f,.51f, 0.0f), firePoint.transform.rotation*Quaternion.Euler(Vector3.up * 10));
+        spawnedFB.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
+        spawnedFB.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
+        spawnedFB.GetComponent<Rigidbody>().AddForce(spawnedFB.transform.forward * projectileSpeed);
+        NetworkServer.Spawn(spawnedFB);
+
+        GameObject spawnedFB2 = Instantiate(fireballPrefab, firePoint.transform.position+new Vector3(0.0f,-.51f, 0.0f), firePoint.transform.rotation*Quaternion.Euler(Vector3.up * (-10)));
+        spawnedFB2.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
+        spawnedFB2.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
+        spawnedFB2.GetComponent<Rigidbody>().AddForce(spawnedFB2.transform.forward * projectileSpeed);
+        NetworkServer.Spawn(spawnedFB2);
+        return;
+    }
+
+    [Command]
     public void CmdLightning()
     {
 
@@ -263,10 +288,6 @@ public class WeaponManager : NetworkBehaviour
         return;
     }
 
-    public void AttackSkill(){
-        //depending on attackTag, do something
-        return;
-    }
 
     public void MovementSkill(){
         //depending on movementTag, do something
