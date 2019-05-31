@@ -70,6 +70,7 @@ public class HealthManager : NetworkBehaviour
     {
         playerShield -= amt;
         if (playerShield <= 0)
+            playerShield = 0;
             playerShieldSpell.SetActive(false);
     }
 
