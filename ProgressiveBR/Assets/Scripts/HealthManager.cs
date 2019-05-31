@@ -68,15 +68,20 @@ public class HealthManager : NetworkBehaviour
 
 
     [Command]
-    public void CmdDmgShield(float amt) { RpcDmgShield(amt); }
+    public void CmdDmgShield(float amt)
+    {
+        playerShield -= amt;
+        RpcDmgShield(amt);
+    }
 
     [ClientRpc]
     public void RpcDmgShield(float amt)
     {
         playerShield -= amt;
         if (playerShield <= 0)
-            playerShield = 0;
-            playerShieldSpell.SetActive(false);
+        {
+            CmdDeactivateShield();
+        }
     }
 
     [Command]
@@ -247,7 +252,7 @@ public class HealthManager : NetworkBehaviour
             else // Fully absorbed
             {
                 CmdDmgShield(amt);
-                playerShield -= amt;
+                //playerShield -= amt;
                 amt = 0;
             }
         }
