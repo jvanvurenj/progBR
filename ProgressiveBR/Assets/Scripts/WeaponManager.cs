@@ -16,6 +16,9 @@ public class WeaponManager : NetworkBehaviour
     private float fireRate = 1;
 
     [SerializeField]
+    private float shieldAmount = 50;
+
+    [SerializeField]
     private float skill1fireRate = 4;
     [SerializeField]
     private float skill2fireRate = 4;
@@ -42,8 +45,7 @@ public class WeaponManager : NetworkBehaviour
     [SerializeField]
     private GameObject frostPrefab;
 
-    [SerializeField]
-    private GameObject NetPrefab;
+
     private Camera playerCamera;
     private float timer;
     private float skill1timer;
@@ -139,6 +141,13 @@ public class WeaponManager : NetworkBehaviour
             }
             
         }
+
+        // Defensive Skill, shield for now
+        if (Input.GetKeyDown("e"))
+        {
+            gameObject.GetComponent<HealthManager>().GainShield(shieldAmount);
+        }
+        
 
         
     }

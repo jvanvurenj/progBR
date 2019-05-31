@@ -16,6 +16,10 @@ public class HealthManager : NetworkBehaviour
     private float xpPerKill = .99f;
     [SyncVar]
     private float playerHealth = 100;
+
+    [SyncVar]
+    public float playerShield = 0;
+
     private float startingHP;
     [SerializeField]
     private float dmgIncreaseAmt = .5f;
@@ -27,6 +31,9 @@ public class HealthManager : NetworkBehaviour
     public bool isAlive = true;
     public Image hpBar;
     public Image xpBar;
+
+    // The spell prefab
+    public GameObject playerShieldSpell;
 
 
     private void Start()
@@ -53,6 +60,38 @@ public class HealthManager : NetworkBehaviour
 
     [ClientRpc]
     public void RpcLvl(int level) { lvl.text = level.ToString(); }
+
+
+    [Command]
+    public void CmdDmgShield(float amt) { RpcDmgShield(amt); }
+
+    [ClientRpc]
+    public void RpcDmgShield(float amt)
+    {
+        playerShield -= amt;
+        if (playerShield <= 0)
+            playerShieldSpell.SetActive(false);
+    }
+
+    [Command]
+    public void CmdDeactivateShield() { RpcDeactivateShield(); }
+
+    [ClientRpc]
+    public void RpcDeactivateShield() {
+        playerShield = 0;
+        playerShieldSpell.SetActive(false); }
+
+    [Command]
+    public void CmdActivateShield(float amt)
+    {
+        RpcActivateShield(amt); }
+
+    [ClientRpc]
+    public void RpcActivateShield(float amt) {
+        playerShield += amt;
+        playerShieldSpell.SetActive(true); }
+
+
 
     [Command]
     public void CmdDeactivate(){RpcDeactivate();}
@@ -154,6 +193,24 @@ public class HealthManager : NetworkBehaviour
 
     }
 
+    public void GainShield(float amt)
+    {
+
+        //playerShieldSpell.SetActive(true);
+        CmdActivateShield(amt); // Display shield
+        StartCoroutine(DeactivateShield());
+
+    }
+
+
+    IEnumerator DeactivateShield()
+    {
+        yield return new WaitForSeconds(2f);
+        playerShield = 0;
+        // playerShieldSpell.SetActive(false);
+        CmdDeactivateShield(); // Remove shield
+    }
+
     IEnumerator Deactivate()
     {
         yield return new WaitForSeconds(2f);
@@ -169,6 +226,23 @@ public class HealthManager : NetworkBehaviour
             return;
         }
        
+        if(playerShield > 0)
+        {
+            float absorbed = playerShield - amt;
+            if (absorbed <= 0) // Shield broke
+            {
+                CmdDeactivateShield();
+                amt = amt - playerShield;
+                playerShield = 0;
+            }
+            else // Fully absorbed
+            {
+                CmdDmgShield(amt);
+                playerShield -= amt;
+                amt = 0;
+            }
+        }
+
         playerHealth -= amt;
         hpBar.fillAmount = playerHealth / startingHP;
         CmdHpBar(playerHealth/startingHP);
