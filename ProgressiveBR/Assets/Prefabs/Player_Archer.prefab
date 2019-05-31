@@ -452,7 +452,7 @@ Transform:
   - {fileID: 5923423336954505751}
   - {fileID: 4301864378514384654}
   - {fileID: 4430324245071462776}
-  - {fileID: 8541147101032696855}
+  - {fileID: 5476510987708605578}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -591,9 +591,7 @@ MonoBehaviour:
   damageModifer: 1
   projectileSpeed: 300
   fireRate: 1
-  skill1fireRate: 4
-  skill2fireRate: 4
-  skill3fireRate: 4
+  shieldAmount: 50
   inputRate: 1
   _animator: {fileID: 5923423336963696259}
   firePoint: {fileID: 2588257571941685983}
@@ -622,7 +620,7 @@ MonoBehaviour:
   lvl: {fileID: 8104641098567707869}
   skilltxt: {fileID: 1659875071647125394}
   playerLevel: 1
-  skillLevels: 0
+  skillLevels: 1
   xpPerKill: 1
   playerShield: 0
   dmgIncreaseAmt: 0.5
@@ -630,7 +628,7 @@ MonoBehaviour:
   isAlive: 1
   hpBar: {fileID: 7072973542568509855}
   xpBar: {fileID: 215558126001707265}
-  playerShieldSpell: {fileID: 8541147101032697203}
+  playerShieldSpell: {fileID: 5476510987708514806}
 --- !u!1 &2588257571941685983
 GameObject:
   m_ObjectHideFlags: 0
@@ -1195,13 +1193,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86a6ed5e04c84e041bf20857a890ede2, type: 3}
---- !u!1 &8541147101032697203 stripped
+--- !u!1 &5476510987708514806 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4217684492758453500, guid: 86a6ed5e04c84e041bf20857a890ede2,
     type: 3}
   m_PrefabInstance: {fileID: 8541147101032697098}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &8541147101032696855 stripped
+--- !u!4 &5476510987708605578 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4217684492758575488, guid: 86a6ed5e04c84e041bf20857a890ede2,
     type: 3}

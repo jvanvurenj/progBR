@@ -18,12 +18,7 @@ public class WeaponManager : NetworkBehaviour
     [SerializeField]
     private float shieldAmount = 50;
 
-    [SerializeField]
-    private float skill1fireRate = 4;
-    [SerializeField]
-    private float skill2fireRate = 4;
-    [SerializeField]
-    private float skill3fireRate = 4;
+    
     [SerializeField]
     private float inputRate = 1;
     // Animator for player controller
@@ -51,7 +46,6 @@ public class WeaponManager : NetworkBehaviour
     private float skill1timer;
     private float skill2timer;
     private float skill3timer;
-    private float inputtimer;
     private bool isAlive = true;
 
 
@@ -63,6 +57,10 @@ public class WeaponManager : NetworkBehaviour
     private int attackTag = 0;
     private int defenseTag = 0;
     private int movementTag = 0;
+
+    private int[] skill1fireRate = new int[3]{10, 4, 10}; 
+    private int[] skill2fireRate = new int[3]{6, 10, 15};
+    private int[] skill3fireRate = new int[3]{6, 10, 15};
 
 
 
@@ -87,7 +85,6 @@ public class WeaponManager : NetworkBehaviour
         skill1timer +=Time.deltaTime;
         skill2timer +=Time.deltaTime;
         skill3timer +=Time.deltaTime;
-        inputtimer +=Time.deltaTime;
         if (timer >= fireRate)
         {
             if (Input.GetButton("Fire1"))
@@ -97,14 +94,11 @@ public class WeaponManager : NetworkBehaviour
             }
         }
         if (Input.GetKeyDown("1")){
-            if (inputtimer>=inputRate){
-                if (gameObject.GetComponent<HealthManager>().ManageSkill()){
-                    attackTag = Random.Range(1,4);
-                    inputtimer = 0f;
-                }
+            if (gameObject.GetComponent<HealthManager>().ManageSkill()){
+                attackTag = Random.Range(1,4);
             }
             else{
-                if(skill1timer >= skill1fireRate){
+                if(skill1timer >= skill1fireRate[attackTag]){
                     //AttackSkill();
                     skill1timer = 0f;
                 }
@@ -112,29 +106,26 @@ public class WeaponManager : NetworkBehaviour
             
         }
         if (Input.GetKeyDown("2")){
-            if (inputtimer>=inputRate){
-                if (gameObject.GetComponent<HealthManager>().ManageSkill()){
-                    defenseTag = Random.Range(1,4);
-                    inputtimer = 0f;
-                }
+            if (gameObject.GetComponent<HealthManager>().ManageSkill()){
+                //defenseTag = Random.Range(1,4);
+                defenseTag = 1;
+                gameObject.GetComponent<HealthManager>().GainShield(shieldAmount);
             }
             else{
-                if(skill2timer >= skill2fireRate){
-                    //DefenseSkill();
+                if(skill2timer >= skill2fireRate[defenseTag]){
+                    DefenseSkill();
                     skill2timer = 0f;
                 }
             }
             
         }
         if (Input.GetKeyDown("3")){
-            if (inputtimer>=inputRate){
-                if (gameObject.GetComponent<HealthManager>().ManageSkill()){
-                    movementTag = Random.Range(1,4);
-                    inputtimer = 0f;
-                }
+            if (gameObject.GetComponent<HealthManager>().ManageSkill()){
+                movementTag = Random.Range(1,4);
             }
+    
             else{
-                if(skill3timer >= skill3fireRate){
+                if(skill3timer >= skill3fireRate[movementTag]){
                     //MovementSkill();
                     skill3timer = 0f;
                 }
@@ -150,6 +141,12 @@ public class WeaponManager : NetworkBehaviour
         
 
         
+    }
+
+    private void DefenseSkill(){
+        if (defenseTag == 1){
+            gameObject.GetComponent<HealthManager>().GainShield(shieldAmount);
+        }
     }
 
    
@@ -271,10 +268,6 @@ public class WeaponManager : NetworkBehaviour
         return;
     }
 
-    public void DefenseSkill(){
-        //depending on defenseTag, do something
-        return;
-    }
     public void MovementSkill(){
         //depending on movementTag, do something
         return;

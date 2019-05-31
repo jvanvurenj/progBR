@@ -10,7 +10,9 @@ public class HealthManager : NetworkBehaviour
     // To be used later.
     public TextMesh lvl;
     public TextMesh skilltxt;
-    public int playerLevel = 1; // Start off with 1 for now.
+    [SyncVar]
+    public int playerLevel = 1;
+    [SyncVar]
     public int skillLevels = 1;
     [SerializeField]
     private float xpPerKill = .99f;
@@ -40,8 +42,11 @@ public class HealthManager : NetworkBehaviour
     {
         startingHP = playerHealth;
         lvl.text = playerLevel.ToString();
+        skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
+        CmdSkillUp();
     }
 
+    
 
     [Command]
     public void CmdHpBar(float amt){RpcHpBar(amt);}
@@ -127,11 +132,11 @@ public class HealthManager : NetworkBehaviour
         skilltxt.text = "";
         CmdSkillDown();
         if (skillLevels > 0){
-            skillLevels = 0;
-            //if (skillLevels>0){
-            //    skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
-            //    CmdSkillUp();
-            //}
+            skillLevels -= 1;
+            if (skillLevels>0){
+                skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
+                CmdSkillUp();
+            }
             return true;
         }
         return false;
