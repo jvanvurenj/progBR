@@ -74,7 +74,9 @@ public class HealthManager : NetworkBehaviour
     }
 
     [Command]
-    public void CmdDeactivateShield() { RpcDeactivateShield(); }
+    public void CmdDeactivateShield() {
+        playerShield = 0;
+        RpcDeactivateShield(); }
 
     [ClientRpc]
     public void RpcDeactivateShield() {
@@ -84,6 +86,7 @@ public class HealthManager : NetworkBehaviour
     [Command]
     public void CmdActivateShield(float amt)
     {
+        playerShield += amt;
         RpcActivateShield(amt); }
 
     [ClientRpc]
