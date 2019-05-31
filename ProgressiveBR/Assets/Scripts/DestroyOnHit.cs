@@ -32,7 +32,7 @@ public class DestroyOnHit : NetworkBehaviour
             return;
         }
 
-        if (other.tag == "Player")
+        if (other.tag == "Player" && other.GetComponent<HealthManager>().returnHealth() >= 0)
         {
             other.GetComponent<HealthManager>().TakeDamage(damage, projectileOwner);
         }

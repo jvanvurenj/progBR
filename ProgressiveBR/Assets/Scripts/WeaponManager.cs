@@ -78,7 +78,7 @@ public class WeaponManager : NetworkBehaviour
     void Update()
     {
 
-        if (!isLocalPlayer || !GetComponent<PlayerMovement>().isEnabled) { return; }
+        if (!isLocalPlayer || !GetComponent<PlayerMovement>().isEnabled || GetComponent<HealthManager>().returnHealth() <= 0) { return; }
 
         PointToMouse();
         timer += Time.deltaTime;

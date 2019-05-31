@@ -240,6 +240,12 @@ public class HealthManager : NetworkBehaviour
             return;
         }
        
+        // Already dead
+        if(playerHealth == 0)
+        {
+            return;
+        }
+
         if(playerShield > 0)
         {
             float absorbed = playerShield - amt;
@@ -264,7 +270,7 @@ public class HealthManager : NetworkBehaviour
 
         if(playerHealth <= 0)
         {
-            hpBar.gameObject.SetActive(false);
+            GetComponent<PlayerMovement>().isEnabled = false;
             anim.SetTrigger("Death");
             CmdAnimateDeath();
             sender.GetComponent<HealthManager>().GainExperience(xpPerKill);
