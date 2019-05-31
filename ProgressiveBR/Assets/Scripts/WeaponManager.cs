@@ -40,6 +40,9 @@ public class WeaponManager : NetworkBehaviour
     [SerializeField]
     private GameObject frostPrefab;
 
+    [SerializeField]
+    private GameObject speedBuffEffect;
+
 
     private Camera playerCamera;
     private float timer;
@@ -165,6 +168,7 @@ public class WeaponManager : NetworkBehaviour
     }
     private void MovementSkill(){
         if (movementTag == 2){
+            CmdSpeedBuff();
             gameObject.GetComponent<PlayerMovement>().SpeedBoost();
         }
     }
@@ -299,6 +303,14 @@ public class WeaponManager : NetworkBehaviour
         spawnedFFB.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
         spawnedFFB.GetComponent<Rigidbody>().AddForce(spawnedFFB.transform.forward * projectileSpeed);
         NetworkServer.Spawn(spawnedFFB);
+        return;
+    }
+
+    [Command]
+    public void CmdSpeedBuff()
+    {
+        GameObject spawnedBuff = Instantiate(speedBuffEffect, transform.position, transform.rotation);
+        NetworkServer.Spawn(spawnedBuff);
         return;
     }
 

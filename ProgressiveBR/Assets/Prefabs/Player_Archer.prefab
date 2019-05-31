@@ -452,7 +452,7 @@ Transform:
   - {fileID: 5923423336954505751}
   - {fileID: 4301864378514384654}
   - {fileID: 4430324245071462776}
-  - {fileID: 5476510987708605578}
+  - {fileID: 8541147101032696855}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -605,6 +605,8 @@ MonoBehaviour:
     type: 3}
   frostPrefab: {fileID: 161879989419787148, guid: e6e4ad641b3d42e498d9ec5d3a581114,
     type: 3}
+  speedBuffEffect: {fileID: 8286951671102448911, guid: 685e5c98ebef9cf4285de0ba7480d3d0,
+    type: 3}
 --- !u!114 &208971881348946261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,7 +630,7 @@ MonoBehaviour:
   isAlive: 1
   hpBar: {fileID: 7072973542568509855}
   xpBar: {fileID: 215558126001707265}
-  playerShieldSpell: {fileID: 5476510987708514806}
+  playerShieldSpell: {fileID: 8541147101032697203}
 --- !u!1 &2588257571941685983
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,14 +953,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1642668146854666537}
     m_Modifications:
-    - target: {fileID: 100000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
-      propertyPath: m_Name
-      value: Archer Warrior
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1001,6 +995,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
+      propertyPath: m_Name
+      value: Archer Warrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9590292, guid: d2c0943173fa94146bd1b04b5438a19d, type: 3}
@@ -1193,13 +1195,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86a6ed5e04c84e041bf20857a890ede2, type: 3}
---- !u!1 &5476510987708514806 stripped
+--- !u!1 &8541147101032697203 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4217684492758453500, guid: 86a6ed5e04c84e041bf20857a890ede2,
     type: 3}
   m_PrefabInstance: {fileID: 8541147101032697098}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5476510987708605578 stripped
+--- !u!4 &8541147101032696855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4217684492758575488, guid: 86a6ed5e04c84e041bf20857a890ede2,
     type: 3}
