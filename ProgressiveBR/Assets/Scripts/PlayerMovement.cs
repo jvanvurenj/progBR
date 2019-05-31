@@ -14,10 +14,12 @@ public class PlayerMovement : NetworkBehaviour
     public Animator characterAnimator;
     public bool isEnabled = false;
     public NetworkInstanceId playerID;
-    public float speed = 6.0f;
+    [SyncVar]
+    public float speed;
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
     public Camera MyCamera;
+    private float timer;
     private Vector3 moveDirection = Vector3.zero;
 
     [Command]
@@ -32,6 +34,7 @@ public class PlayerMovement : NetworkBehaviour
         {
             return;
         }
+        speed = 6.0f;
         characterController = GetComponent<CharacterController>();
         playerID = GetComponent<NetworkIdentity>().netId;
     }
@@ -56,5 +59,20 @@ public class PlayerMovement : NetworkBehaviour
         MyCamera = Instantiate(Camera.main);
         MyCamera.GetComponent<CameraController>().setTarget(gameObject);
         
+    }
+
+    public void SpeedBoost()
+    {
+        StartCoroutine(speedwaiter());
+    }
+
+    IEnumerator speedwaiter(){
+        speed = 12.0f;
+        yield return new WaitForSeconds(4);
+        speed = 6.0f;
+    }
+
+    public void Spectate(GameObject sender){
+        MyCamera.GetComponent<CameraController>().setTarget(sender);
     }
 }

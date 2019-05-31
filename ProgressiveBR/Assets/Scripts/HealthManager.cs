@@ -269,6 +269,7 @@ public class HealthManager : NetworkBehaviour
             CmdAnimateDeath();
             sender.GetComponent<HealthManager>().GainExperience(xpPerKill);
             StartCoroutine(Deactivate());
+            gameObject.GetComponent<PlayerMovement>().Spectate(sender);
 
         }
     }

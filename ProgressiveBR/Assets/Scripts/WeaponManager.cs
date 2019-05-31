@@ -72,8 +72,13 @@ public class WeaponManager : NetworkBehaviour
 
     private void Start()
     {
+        skill1timer = 20.0f;
+        skill2timer = 20.0f;
+        skill3timer = 20.0f;
+        timer = 20.0f;
         playerCamera = GetComponent<PlayerMovement>().MyCamera;
     }
+
 
     void Update()
     {
@@ -122,12 +127,13 @@ public class WeaponManager : NetworkBehaviour
         }
         if (Input.GetKeyDown("3")){
             if (gameObject.GetComponent<HealthManager>().ManageSkill()){
-                movementTag = Random.Range(1,4);
+                //movementTag = Random.Range(1,4);
+                movementTag = 2;
             }
     
             else{
                 if(skill3timer >= skill3fireRate[movementTag]){
-                    //MovementSkill();
+                    MovementSkill();
                     skill3timer = 0f;
                 }
             }
@@ -135,10 +141,10 @@ public class WeaponManager : NetworkBehaviour
         }
 
         // Defensive Skill, shield for now
-        if (Input.GetKeyDown("e"))
-        {
-            gameObject.GetComponent<HealthManager>().GainShield(shieldAmount);
-        }
+        // if (Input.GetKeyDown("e"))
+        // {
+        //     gameObject.GetComponent<HealthManager>().GainShield(shieldAmount);
+        // }
         
 
         
@@ -155,6 +161,12 @@ public class WeaponManager : NetworkBehaviour
             CmdDoubleFireBall();
         }
     }
+    private void MovementSkill(){
+        if (movementTag == 2){
+            gameObject.GetComponent<PlayerMovement>().SpeedBoost();
+        }
+    }
+
 
    
 
@@ -289,8 +301,4 @@ public class WeaponManager : NetworkBehaviour
     }
 
 
-    public void MovementSkill(){
-        //depending on movementTag, do something
-        return;
-    }
 }
