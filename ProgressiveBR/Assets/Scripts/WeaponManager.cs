@@ -102,6 +102,7 @@ public class WeaponManager : NetworkBehaviour
             if (gameObject.GetComponent<HealthManager>().ManageSkill()){
                 //attackTag = Random.Range(1,4);
                 attackTag = 2;
+                skill1timer = 20f;
             }
             else{
                 if(skill1timer >= skill1fireRate[attackTag]){
@@ -115,7 +116,7 @@ public class WeaponManager : NetworkBehaviour
             if (gameObject.GetComponent<HealthManager>().ManageSkill()){
                 //defenseTag = Random.Range(1,4);
                 defenseTag = 1;
-                gameObject.GetComponent<HealthManager>().GainShield(shieldAmount);
+                skill2timer = 20f;
             }
             else{
                 if(skill2timer >= skill2fireRate[defenseTag]){
@@ -129,6 +130,7 @@ public class WeaponManager : NetworkBehaviour
             if (gameObject.GetComponent<HealthManager>().ManageSkill()){
                 //movementTag = Random.Range(1,4);
                 movementTag = 2;
+                skill3timer = 20f;
             }
     
             else{
