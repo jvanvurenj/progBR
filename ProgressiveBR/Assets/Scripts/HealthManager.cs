@@ -36,7 +36,7 @@ public class HealthManager : NetworkBehaviour
 
     // The spell prefab
     public GameObject playerShieldSpell;
-
+    public GameObject playerInvincibleSpell;
 
     private void Start()
     {
@@ -92,7 +92,9 @@ public class HealthManager : NetworkBehaviour
     [ClientRpc]
     public void RpcDeactivateShield() {
         playerShield = 0;
-        playerShieldSpell.SetActive(false); }
+        playerShieldSpell.SetActive(false);
+        playerInvincibleSpell.SetActive(false);
+    }
 
     [Command]
     public void CmdActivateShield(float amt)
@@ -100,10 +102,21 @@ public class HealthManager : NetworkBehaviour
         playerShield += amt;
         RpcActivateShield(amt); }
 
+
     [ClientRpc]
     public void RpcActivateShield(float amt) {
         playerShield += amt;
-        playerShieldSpell.SetActive(true); }
+
+        if (amt > 50)
+        {
+            playerInvincibleSpell.SetActive(true);
+        }
+        else
+        {
+            playerShieldSpell.SetActive(true);
+        }
+        
+    }
 
 
 
@@ -154,26 +167,6 @@ public class HealthManager : NetworkBehaviour
     public void RpcAnimateDeath() { anim.SetTrigger("Death"); }
 
 
-    private void LevelUp(int s)
-    {
-        if (!isLocalPlayer) { return; }
-        if (skillLevels <= 0) { return; }
-        //skillLevels -= 1;
-        // switch (s)
-        // {
-        //     case 0:
-        //         // Increase damage.
-        //         GetComponent<WeaponManager>().damageModifer += dmgIncreaseAmt;
-        //         break;
-        //     case 1:
-        //         // Increase damage.
-        //         GetComponent<PlayerMovement>().speed += 2;
-        //         break;
-        //     default:
-        //         break;
-        // }
-    }
-
     public void GainExperience(float amt)
     {
         playerExperience += amt;
@@ -207,19 +200,19 @@ public class HealthManager : NetworkBehaviour
 
     }
 
-    public void GainShield(float amt)
+    public void GainShield(float amt, float t)
     {
 
         //playerShieldSpell.SetActive(true);
         CmdActivateShield(amt); // Display shield
-        StartCoroutine(DeactivateShield());
+        StartCoroutine(DeactivateShield(t));
 
     }
 
 
-    IEnumerator DeactivateShield()
+    IEnumerator DeactivateShield(float t)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(t);
         playerShield = 0;
         // playerShieldSpell.SetActive(false);
         CmdDeactivateShield(); // Remove shield

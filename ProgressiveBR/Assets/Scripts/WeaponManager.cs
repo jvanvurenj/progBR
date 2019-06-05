@@ -39,9 +39,18 @@ public class WeaponManager : NetworkBehaviour
     private GameObject soulPrefab;
     [SerializeField]
     private GameObject frostPrefab;
+    [SerializeField]
+    private GameObject mysticPrefab;
+    [SerializeField]
+    private GameObject waterDropPrefab;
 
     [SerializeField]
     private GameObject speedBuffEffect;
+    [SerializeField]
+    private GameObject teleportEffect;
+
+    [SerializeField]
+    private GameObject iceWall;
 
 
     private Camera playerCamera;
@@ -103,8 +112,7 @@ public class WeaponManager : NetworkBehaviour
         }
         if (Input.GetKeyDown("1")){
             if (gameObject.GetComponent<HealthManager>().ManageSkill()){
-                //attackTag = Random.Range(1,4);
-                attackTag = 2;
+                attackTag = Random.Range(1,4);
                 skill1timer = 20f;
             }
             else{
@@ -117,8 +125,7 @@ public class WeaponManager : NetworkBehaviour
         }
         if (Input.GetKeyDown("2")){
             if (gameObject.GetComponent<HealthManager>().ManageSkill()){
-                //defenseTag = Random.Range(1,4);
-                defenseTag = 1;
+                defenseTag = Random.Range(1,4);
                 skill2timer = 20f;
             }
             else{
@@ -131,8 +138,7 @@ public class WeaponManager : NetworkBehaviour
         }
         if (Input.GetKeyDown("3")){
             if (gameObject.GetComponent<HealthManager>().ManageSkill()){
-                //movementTag = Random.Range(1,4);
-                movementTag = 2;
+                movementTag = Random.Range(2,4);
                 skill3timer = 20f;
             }
     
@@ -145,32 +151,77 @@ public class WeaponManager : NetworkBehaviour
             
         }
 
-        // Defensive Skill, shield for now
-        // if (Input.GetKeyDown("e"))
-        // {
-        //     gameObject.GetComponent<HealthManager>().GainShield(shieldAmount);
-        // }
-        
 
         
     }
 
     private void DefenseSkill(){
-        if (defenseTag == 1){
-            gameObject.GetComponent<HealthManager>().GainShield(shieldAmount);
+        switch (defenseTag)
+        {
+            case (1): // 2  second shield.
+                gameObject.GetComponent<HealthManager>().GainShield(shieldAmount, 2);
+                break;
+            case (2): // Spawn a temporary wall
+                Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
+                {
+                    Vector3 targetPostition = new Vector3(hit.point.x, this.transform.position.y, hit.point.z);
+                    CmdAnimateAttack("Attack2");
+                    CmdFrostWall(targetPostition);
+                }
+                break;
+            case (3): // "Invincible" for 6 seconds just make the shield unbreakable by making it very large.
+                gameObject.GetComponent<HealthManager>().GainShield(9999, 6);
+                break;
+            default:
+                break;
         }
     }
-    private void AttackSkill(){
-        if (attackTag == 2){
-            CmdAnimateAttack("Attack");
-            CmdDoubleFireBall();
+
+    private void AttackSkill()
+    {
+        switch (attackTag)
+        {
+            case (1):
+                CmdAnimateAttack("Attack");
+                CmdLightning(); // 50 Dmg, half the weight so twice as fast.
+                break;
+            case (2):
+                CmdAnimateAttack("Attack2");
+                CmdDoubleFireBall();
+                break;
+            // 75 DMG falls from the sky of mouse position click.
+            case (3):
+                Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
+                {
+                    Vector3 targetPostition = new Vector3(hit.point.x, this.transform.position.y + 10, hit.point.z);
+                    CmdAnimateAttack("Attack3");
+                    CmdWaterDrop(targetPostition);
+                }
+                break;
+            default:
+                break;
         }
+
+       
     }
     private void MovementSkill(){
-        if (movementTag == 2){
-            CmdSpeedBuff();
-            gameObject.GetComponent<PlayerMovement>().SpeedBoost();
+        switch (movementTag)
+        {
+            case(2):
+                CmdSpeedBuff();
+                gameObject.GetComponent<PlayerMovement>().SpeedBoost();
+                break;
+            case (3): // Teleport to random spawn position, and play a teleport animation
+                Teleport();
+                break;
+            default:
+                break;
         }
+        
     }
 
 
@@ -194,27 +245,22 @@ public class WeaponManager : NetworkBehaviour
         switch (r)
         {
             case (0):
-                //_animator.SetTrigger("Attack");
                 CmdAnimateAttack("Attack");
                 CmdFireBall();
                 break;
             case (1):
-                //_animator.SetTrigger("Attack2");
                 CmdAnimateAttack("Attack2");
-                CmdLightning();
+                CmdMystic();
                 break;
             case (2):
-                //_animator.SetTrigger("Attack3");
                 CmdAnimateAttack("Attack3");
                 CmdSoul();
                 break;
             case (3):
-                //_animator.SetTrigger("Attack4");
                 CmdAnimateAttack("Attack3");
                 CmdFrost();
                 break;
             default:
-                //_animator.SetTrigger("Attack");
                 CmdAnimateAttack("Attack");
                 CmdFireBall();
                 break;
@@ -229,11 +275,28 @@ public class WeaponManager : NetworkBehaviour
         projectileSpeed = speed;
     }
 
+
+    public void Teleport()
+    {
+        GameObject[] SpawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
+        int r = Random.Range(0, SpawnPoints.Length);
+        CmdTeleAnim();
+        gameObject.transform.position = SpawnPoints[r].transform.position;
+        return;
+    }
+
+    [Command]
+    public void CmdTeleAnim()
+    {
+        GameObject teleportAnimation = Instantiate(teleportEffect, transform.position, Quaternion.identity);
+        NetworkServer.Spawn(teleportAnimation);
+        return;
+    }
+
     [Command]
     public void CmdArrow()
     {
-        //print(isLocalPlayer);
-        
+
         GameObject spawnedArrow = Instantiate(arrowPrefab, firePoint.transform.position, firePoint.transform.rotation);
         spawnedArrow.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
         spawnedArrow.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
@@ -294,6 +357,8 @@ public class WeaponManager : NetworkBehaviour
         NetworkServer.Spawn(spawnedSB);
         return;
     }
+
+
     [Command]
     public void CmdFrost()
     {
@@ -307,12 +372,52 @@ public class WeaponManager : NetworkBehaviour
     }
 
     [Command]
+    public void CmdMystic()
+    {
+
+        GameObject spawnedFFB = Instantiate(mysticPrefab, firePoint.transform.position, firePoint.transform.rotation);
+        spawnedFFB.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
+        spawnedFFB.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
+        spawnedFFB.GetComponent<Rigidbody>().AddForce(spawnedFFB.transform.forward * projectileSpeed);
+        NetworkServer.Spawn(spawnedFFB);
+        return;
+    }
+
+    [Command]
     public void CmdSpeedBuff()
     {
-        GameObject spawnedBuff = Instantiate(speedBuffEffect, transform.position, transform.rotation);
+        GameObject spawnedBuff = Instantiate(speedBuffEffect, transform.position, Quaternion.identity);
         NetworkServer.Spawn(spawnedBuff);
         return;
     }
+
+
+    [Command]
+    public void CmdWaterDrop(Vector3 targetPostition)
+    {
+        // Get position of mouse
+        GameObject WaterDrop = Instantiate(waterDropPrefab, targetPostition, Quaternion.identity);
+        WaterDrop.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
+        WaterDrop.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
+        NetworkServer.Spawn(WaterDrop);
+        
+        return;
+    }
+
+    [Command]
+    public void CmdFrostWall(Vector3 targetPostition)
+    {
+        GameObject IceWALL = Instantiate(iceWall, targetPostition, transform.rotation);
+        Destroy(IceWALL, 3);
+        NetworkServer.Spawn(IceWALL);
+
+        return;
+    }
+
+
+    // To supress animation errors.
+    public void FootR() { }
+    public void FootL() { }
 
 
 }

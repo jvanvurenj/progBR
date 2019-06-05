@@ -14,7 +14,6 @@ public class GameManager : NetworkBehaviour
     public int minimumPlayers = 4;
     public int countdownTime = 4;
     private int numConnected;
-    bool AllConnected = false;
     bool gameInProgress = false;
 
     void Start()

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44963378, g: 0.49970287, b: 0.5756532, a: 1}
+  m_IndirectSpecularColor: {r: 0.4496342, g: 0.49970376, b: 0.57565457, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1555,7 +1555,7 @@ GameObject:
   - component: {fileID: 588084117}
   m_Layer: 0
   m_Name: Spawn3
-  m_TagString: Untagged
+  m_TagString: Spawn
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1822,7 +1822,7 @@ GameObject:
   - component: {fileID: 735265319}
   m_Layer: 0
   m_Name: Spawn1
-  m_TagString: Untagged
+  m_TagString: Spawn
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5034,7 +5034,7 @@ GameObject:
   - component: {fileID: 1583977140}
   m_Layer: 0
   m_Name: Spawn2
-  m_TagString: Untagged
+  m_TagString: Spawn
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6115,7 +6115,7 @@ GameObject:
   - component: {fileID: 1978605686}
   m_Layer: 0
   m_Name: Spawn4
-  m_TagString: Untagged
+  m_TagString: Spawn
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
