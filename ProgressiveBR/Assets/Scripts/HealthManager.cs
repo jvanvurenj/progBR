@@ -10,12 +10,14 @@ public class HealthManager : NetworkBehaviour
     // To be used later.
     public TextMesh lvl;
     public TextMesh skilltxt;
+
     [SyncVar]
     public int playerLevel = 1;
     [SyncVar]
     public int skillLevels = 1;
-    [SerializeField]
-    private float xpPerKill = .99f;
+
+    [SyncVar]
+    public float xpPerKill = 1f;
     [SyncVar]
     private float playerHealth = 100;
 
@@ -31,6 +33,7 @@ public class HealthManager : NetworkBehaviour
 
     private Transform startingPosition;
     public bool isAlive = true;
+
     public Image hpBar;
     public Image xpBar;
 
@@ -42,6 +45,12 @@ public class HealthManager : NetworkBehaviour
     {
         startingHP = playerHealth;
         lvl.text = playerLevel.ToString();
+        CmdLvl(playerLevel);
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
         CmdSkillUp();
     }
@@ -119,12 +128,12 @@ public class HealthManager : NetworkBehaviour
     }
 
 
-
     [Command]
     public void CmdDeactivate(){RpcDeactivate();}
 
     [ClientRpc]
     public void RpcDeactivate(){this.gameObject.SetActive(false);}
+
 
     [Command]
     public void CmdSkillUp(){ RpcSkillUp(); }
@@ -138,7 +147,7 @@ public class HealthManager : NetworkBehaviour
     public void CmdSkillDown(){ RpcSkillDown(); }
 
     [ClientRpc]
-    public void RpcSkillDown(){ 
+    public void RpcSkillDown(){
         //if (skillLevels <= 1){
         skilltxt.text = "";
         //}
@@ -151,10 +160,12 @@ public class HealthManager : NetworkBehaviour
         CmdSkillDown();
         if (skillLevels > 0){
             skillLevels -= 1;
-            if (skillLevels>0){
+            if (skillLevels>0)
+            {
                 skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
                 CmdSkillUp();
             }
+            
             return true;
         }
         return false;
@@ -169,6 +180,7 @@ public class HealthManager : NetworkBehaviour
 
     public void GainExperience(float amt)
     {
+        
         playerExperience += amt;
         if(playerExperience >= 1f)
         {
@@ -184,6 +196,7 @@ public class HealthManager : NetworkBehaviour
         xpBar.fillAmount = playerExperience;
         CmdXpBar(playerExperience);
     }
+
 
     public float returnHealth()
     {

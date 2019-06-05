@@ -27,7 +27,30 @@ public class WeaponManager : NetworkBehaviour
     // Firepoint locations for instantiating prefabs
     [SerializeField]
     private GameObject firePoint;
- 
+
+    [SerializeField]
+    private GameObject attackIcon1;
+    [SerializeField]
+    private GameObject attackIcon2;
+    [SerializeField]
+    private GameObject attackIcon3;
+
+    [SerializeField]
+    private GameObject defenseIcon1;
+    [SerializeField]
+    private GameObject defenseIcon2;
+    [SerializeField]
+    private GameObject defenseIcon3;
+
+    [SerializeField]
+    private GameObject movementIcon1;
+    [SerializeField]
+    private GameObject movementIcon2;
+    [SerializeField]
+    private GameObject movementIcon3;
+
+
+
     // Prefabs for projectiles
     [SerializeField]
     private GameObject arrowPrefab;
@@ -119,6 +142,7 @@ public class WeaponManager : NetworkBehaviour
         if (Input.GetKeyDown("1")){
             if (gameObject.GetComponent<HealthManager>().ManageSkill()){
                 attackTag = Random.Range(1,4);
+                SetAttackIcon();
                 skill1timer = 20f;
             }
             else{
@@ -132,6 +156,7 @@ public class WeaponManager : NetworkBehaviour
         if (Input.GetKeyDown("2")){
             if (gameObject.GetComponent<HealthManager>().ManageSkill()){
                 defenseTag = Random.Range(1,4);
+                SetDefenseIcon();
                 skill2timer = 20f;
             }
             else{
@@ -145,6 +170,7 @@ public class WeaponManager : NetworkBehaviour
         if (Input.GetKeyDown("3")){
             if (gameObject.GetComponent<HealthManager>().ManageSkill()){
                 movementTag = Random.Range(2,4);
+                SetMovementIcon();
                 skill3timer = 20f;
             }
     
@@ -159,6 +185,69 @@ public class WeaponManager : NetworkBehaviour
 
 
         
+    }
+
+    private void SetAttackIcon()
+    {
+        attackIcon1.SetActive(false);
+        attackIcon2.SetActive(false);
+        attackIcon3.SetActive(false);
+        switch (attackTag)
+        {
+            case (1):
+                attackIcon1.SetActive(true);
+                break;
+            case (2):
+                attackIcon2.SetActive(true);
+                break;
+            case (3):
+                attackIcon3.SetActive(true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void SetDefenseIcon()
+    {
+        defenseIcon1.SetActive(false);
+        defenseIcon2.SetActive(false);
+        defenseIcon3.SetActive(false);
+        switch (defenseTag)
+        {
+            case (1):
+                defenseIcon1.SetActive(true);
+                break;
+            case (2):
+                defenseIcon2.SetActive(true);
+                break;
+            case (3):
+                defenseIcon3.SetActive(true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void SetMovementIcon()
+    {
+        movementIcon1.SetActive(false);
+        movementIcon2.SetActive(false);
+        movementIcon3.SetActive(false);
+        switch (movementTag)
+        {
+            case (1):
+                movementIcon1.SetActive(true);
+                break;
+            case (2):
+                movementIcon2.SetActive(true);
+                break;
+            case (3):
+                movementIcon3.SetActive(true);
+                break;
+            default:
+                break;
+        }
     }
 
     private void DefenseSkill(){
@@ -187,6 +276,7 @@ public class WeaponManager : NetworkBehaviour
 
     private void AttackSkill()
     {
+        
         switch (attackTag)
         {
             case (1):
