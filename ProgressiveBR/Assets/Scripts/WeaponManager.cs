@@ -44,6 +44,8 @@ public class WeaponManager : NetworkBehaviour
     [SerializeField]
     private GameObject waterDropPrefab;
     [SerializeField]
+    private GameObject waterZonePrefab;
+    [SerializeField]
     private GameObject shadowBallPrefab;
     [SerializeField]
     private GameObject acidBallPrefab;
@@ -215,7 +217,10 @@ public class WeaponManager : NetworkBehaviour
     private void MovementSkill(){
         switch (movementTag)
         {
-            case(2):
+            case (1):;
+                break;
+
+            case (2):
                 CmdSpeedBuff();
                 gameObject.GetComponent<PlayerMovement>().SpeedBoost();
                 break;
@@ -439,9 +444,13 @@ public class WeaponManager : NetworkBehaviour
     public void CmdWaterDrop(Vector3 targetPostition)
     {
         // Get position of mouse
+        Vector3 ZonePos = new Vector3(targetPostition.x, targetPostition.y-10, targetPostition.z);
         GameObject WaterDrop = Instantiate(waterDropPrefab, targetPostition, Quaternion.identity);
+        GameObject WaterZone = Instantiate(waterZonePrefab, ZonePos, Quaternion.identity);
         WaterDrop.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
         WaterDrop.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
+        Destroy(WaterZone, 1.5f);
+        NetworkServer.Spawn(WaterZone);
         NetworkServer.Spawn(WaterDrop);
         
         return;
