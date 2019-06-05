@@ -233,11 +233,11 @@ public class HealthManager : NetworkBehaviour
             playerExperience = 0;
             playerLevel += 1;
             skillLevels += 1;
-            CmdLvlInc(skillLevels);
-            //if (skillLevels > 1)
-            //{
-            //    skillLevels = 1;
-            //}
+            //CmdLvlInc(skillLevels);
+            if (skillLevels > 1)
+            {
+                skillLevels = 1;
+            }
 
             lvl.text = playerLevel.ToString();
             CmdLvl(playerLevel);
