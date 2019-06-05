@@ -345,8 +345,8 @@ MonoBehaviour:
     time you eliminate another player, you will level up. At each level up you will
     be presented the option to acquire a random skill.\n\t\t\t\t\t1 = attack skill\n\tFire
     Barrage , Lightning bolt, Waterdrop\n\t\t\t\t\t2 = defense skill\n\tTemporal shield,
-    Ice Wall, Invincibility(6s)\n\t\t\t\t\t3 = movement skill\n\tHeal , Speed Boost,
-    Teleport\nWhen ready, press START!"
+    Ice Wall, Invincibility(6s)\n\t\t\t\t\t3 = movement/utility skill\n\tHeal , Speed
+    Boost, Teleport\nWhen ready, press START!"
 --- !u!222 &156425436
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -54,7 +54,7 @@ public class HealthManager : NetworkBehaviour
             return;
         }
         skill_txt.gameObject.SetActive(true);
-        skill_txt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
+        skill_txt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement/Utility Skill";
         //skill_txt_frame.SetActive(true);
         //skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
         //CmdSkillUp();
@@ -158,7 +158,7 @@ public class HealthManager : NetworkBehaviour
 
     [ClientRpc]
     public void RpcSkillUp(){
-        skill_txt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
+        skill_txt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement/Utility Skill";
         if (!isLocalPlayer)
         {
             return;
@@ -242,7 +242,7 @@ public class HealthManager : NetworkBehaviour
             lvl.text = playerLevel.ToString();
             CmdLvl(playerLevel);
 
-            skill_txt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
+            skill_txt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement/Utility Skill";
             CmdSkillUp();
 
 
