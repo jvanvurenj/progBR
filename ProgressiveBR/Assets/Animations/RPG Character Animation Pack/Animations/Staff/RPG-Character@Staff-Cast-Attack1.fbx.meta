@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 98bf046065f24b04786d583c7c3c999b
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: B_L_Calf
     100002: B_L_Thigh
@@ -252,10 +252,12 @@ ModelImporter:
     13700000: Soldier_Mesh
     13700002: RPG-Character-Mesh
     2186277476908879412: ImportLogs
+  externalObjects: {}
   materials:
     importMaterials: 0
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -270,6 +272,8 @@ ModelImporter:
       and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -277,6 +281,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths:
     - PositionLocator/B_Pelvis/B_Spine/B_Spine1/B_R_Clavicle/B_R_UpperArm/B_R_Forearm/B_R_Hand/B_Prop1
+    extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
       name: Staff-Cast-Attack1_start
@@ -324,7 +329,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -595,22 +600,34 @@ ModelImporter:
     globalScale: 0.01
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
     importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 0
     keepQuads: 0
     weldVertices: 0
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 0
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 2
     tangentImportMode: 2
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 2
+    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 1
   humanDescription:
@@ -1308,7 +1325,6 @@ ModelImporter:
     legStretch: 0
     feetSpacing: 0
     rootMotionBoneName: PositionLocator
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 1
     hasExtraRoot: 0
     skeletonHasParents: 0

@@ -463,7 +463,11 @@ MonoBehaviour:
   - {fileID: 2220246593005656437, guid: abdd082e9b62a424ca89e3043f3dc065, type: 3}
   - {fileID: 5861039372491888209, guid: a19b67951317b664dbc9a23088c72978, type: 3}
   - {fileID: 5598723418676873874, guid: fa10081cb7a09b64aa66f768f9341244, type: 3}
-  m_CustomConfig: 0
+  - {fileID: 8339595449600333093, guid: e45aa9e7eaf295f458c29757075db859, type: 3}
+  - {fileID: 2691461288812722521, guid: 24985b2fcfa572543840d69e317c1203, type: 3}
+  - {fileID: 4617812555664457274, guid: 39a81c9725a2e104783ac54b81d378fe, type: 3}
+  - {fileID: 8383506343015521340, guid: f7f8953b8d6afd94ab92227b58a85a10, type: 3}
+  m_CustomConfig: 1
   m_MaxConnections: 4
   m_ConnectionConfig:
     m_PacketSize: 1440
@@ -505,7 +509,7 @@ MonoBehaviour:
     m_MaxTimerTimeout: 12000
     m_MinNetSimulatorTimeout: 1
     m_MaxNetSimulatorTimeout: 12000
-  m_Channels: 
+  m_Channels: 0500000000000000
   m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1

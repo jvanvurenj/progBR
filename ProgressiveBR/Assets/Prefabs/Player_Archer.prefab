@@ -452,8 +452,8 @@ Transform:
   - {fileID: 5923423336954505751}
   - {fileID: 4301864378514384654}
   - {fileID: 4430324245071462776}
-  - {fileID: 8541147101032696938}
-  - {fileID: 5817595787860796516}
+  - {fileID: 8541147101032696959}
+  - {fileID: 5817595787860796500}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -610,6 +610,10 @@ MonoBehaviour:
     type: 3}
   waterDropPrefab: {fileID: 2132465058933901069, guid: cfaf2ece1d445064b9533a630b44f8b6,
     type: 3}
+  shadowBallPrefab: {fileID: 8339595449600333093, guid: e45aa9e7eaf295f458c29757075db859,
+    type: 3}
+  acidBallPrefab: {fileID: 4617812555664457274, guid: 39a81c9725a2e104783ac54b81d378fe,
+    type: 3}
   speedBuffEffect: {fileID: 8286951671102448911, guid: 685e5c98ebef9cf4285de0ba7480d3d0,
     type: 3}
   teleportEffect: {fileID: 4978808416044255311, guid: a9d5c8b98d5d8b94b9adad5dcfd64218,
@@ -638,8 +642,8 @@ MonoBehaviour:
   isAlive: 1
   hpBar: {fileID: 7072973542568509855}
   xpBar: {fileID: 215558126001707265}
-  playerShieldSpell: {fileID: 8541147101032697239}
-  playerInvincibleSpell: {fileID: 5817595787860796858}
+  playerShieldSpell: {fileID: 8541147101032697251}
+  playerInvincibleSpell: {fileID: 5817595787860796837}
 --- !u!1 &2588257571941685983
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,13 +1027,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abdd082e9b62a424ca89e3043f3dc065, type: 3}
---- !u!1 &5817595787860796858 stripped
+--- !u!1 &5817595787860796837 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2220246593005656437, guid: abdd082e9b62a424ca89e3043f3dc065,
     type: 3}
   m_PrefabInstance: {fileID: 5817595787860796726}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5817595787860796516 stripped
+--- !u!4 &5817595787860796500 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2220246593005412087, guid: abdd082e9b62a424ca89e3043f3dc065,
     type: 3}
@@ -1388,13 +1392,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86a6ed5e04c84e041bf20857a890ede2, type: 3}
---- !u!1 &8541147101032697239 stripped
+--- !u!1 &8541147101032697251 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4217684492758453500, guid: 86a6ed5e04c84e041bf20857a890ede2,
     type: 3}
   m_PrefabInstance: {fileID: 8541147101032697098}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &8541147101032696938 stripped
+--- !u!4 &8541147101032696959 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4217684492758575488, guid: 86a6ed5e04c84e041bf20857a890ede2,
     type: 3}

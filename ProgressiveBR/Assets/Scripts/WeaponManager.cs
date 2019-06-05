@@ -43,6 +43,10 @@ public class WeaponManager : NetworkBehaviour
     private GameObject mysticPrefab;
     [SerializeField]
     private GameObject waterDropPrefab;
+    [SerializeField]
+    private GameObject shadowBallPrefab;
+    [SerializeField]
+    private GameObject acidBallPrefab;
 
     [SerializeField]
     private GameObject speedBuffEffect;
@@ -241,7 +245,7 @@ public class WeaponManager : NetworkBehaviour
 
     private void Fire()
     {
-        int r = Random.Range(0, 4);
+        int r = Random.Range(0, 6);
         switch (r)
         {
             case (0):
@@ -259,6 +263,14 @@ public class WeaponManager : NetworkBehaviour
             case (3):
                 CmdAnimateAttack("Attack3");
                 CmdFrost();
+                break;
+            case (4):
+                CmdAnimateAttack("Attack4");
+                CmdShadowBall();
+                break;
+            case (5):
+                CmdAnimateAttack("Attack5");
+                CmdAcidBall();
                 break;
             default:
                 CmdAnimateAttack("Attack");
@@ -317,6 +329,30 @@ public class WeaponManager : NetworkBehaviour
     {
 
         GameObject spawnedFB = Instantiate(fireballPrefab, firePoint.transform.position, firePoint.transform.rotation);
+        spawnedFB.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
+        spawnedFB.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
+        spawnedFB.GetComponent<Rigidbody>().AddForce(spawnedFB.transform.forward * projectileSpeed);
+        NetworkServer.Spawn(spawnedFB);
+        return;
+    }
+
+    [Command]
+    public void CmdShadowBall()
+    {
+
+        GameObject spawnedFB = Instantiate(shadowBallPrefab, firePoint.transform.position, firePoint.transform.rotation);
+        spawnedFB.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
+        spawnedFB.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
+        spawnedFB.GetComponent<Rigidbody>().AddForce(spawnedFB.transform.forward * projectileSpeed);
+        NetworkServer.Spawn(spawnedFB);
+        return;
+    }
+
+    [Command]
+    public void CmdAcidBall()
+    {
+
+        GameObject spawnedFB = Instantiate(acidBallPrefab, firePoint.transform.position, firePoint.transform.rotation);
         spawnedFB.GetComponent<DestroyOnHit>().projectileOwner = this.gameObject;
         spawnedFB.GetComponent<DestroyOnHit>().AddDmg(damageModifer);
         spawnedFB.GetComponent<Rigidbody>().AddForce(spawnedFB.transform.forward * projectileSpeed);
