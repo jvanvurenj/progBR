@@ -282,8 +282,15 @@ public class WeaponManager : NetworkBehaviour
         int r = Random.Range(0, SpawnPoints.Length);
         CmdTeleAnim();
         gameObject.transform.position = SpawnPoints[r].transform.position;
+        CmdTeleport(SpawnPoints[r]);
         return;
     }
+
+    [Command]
+    public void CmdTeleport(GameObject obj) {RpcTeleport(obj); }
+    [ClientRpc]
+    public void RpcTeleport(GameObject obj) { gameObject.transform.position = obj.transform.position;}
+
 
     [Command]
     public void CmdTeleAnim()
