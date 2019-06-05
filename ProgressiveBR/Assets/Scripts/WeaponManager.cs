@@ -81,6 +81,8 @@ public class WeaponManager : NetworkBehaviour
 
     [SerializeField]
     private GameObject iceWall;
+    [SerializeField]
+    private GameObject healEffectPrefab;
 
 
     private Camera playerCamera;
@@ -179,7 +181,7 @@ public class WeaponManager : NetworkBehaviour
         }
         if (Input.GetKeyDown("3")){
             if (gameObject.GetComponent<HealthManager>().ManageSkill()){
-                movementTag = Random.Range(2,4);
+                movementTag = Random.Range(1,4);
                 //SetMovementIcon();
                 skill3timer = 20f;
             }
@@ -435,12 +437,15 @@ public class WeaponManager : NetworkBehaviour
 
        
     }
+    // Movement  and utilities spells
     private void MovementSkill(){
         switch (movementTag)
         {
             case (1):;
+                gameObject.GetComponent<HealthManager>().GainHealth(50);
+                CmdHealAnimation();
+                CmdAnimateAttack("Attack3");
                 break;
-
             case (2):
                 CmdSpeedBuff();
                 gameObject.GetComponent<PlayerMovement>().SpeedBoost();
@@ -535,6 +540,15 @@ public class WeaponManager : NetworkBehaviour
     {
         GameObject teleportAnimation = Instantiate(teleportEffect, transform.position, Quaternion.identity);
         NetworkServer.Spawn(teleportAnimation);
+        return;
+    }
+
+    [Command]
+    public void CmdHealAnimation()
+    {
+        GameObject HealAnim = Instantiate(healEffectPrefab, transform.position, Quaternion.identity);
+        Destroy(HealAnim, 3);
+        NetworkServer.Spawn(HealAnim);
         return;
     }
 

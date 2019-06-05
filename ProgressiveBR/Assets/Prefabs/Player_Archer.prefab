@@ -213,7 +213,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: da27f7df8385441f7a2898b5ad3aeca1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7c46da8c16aa14e24be6153e002c419f, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -928,6 +928,8 @@ MonoBehaviour:
   teleportEffect: {fileID: 4978808416044255311, guid: a9d5c8b98d5d8b94b9adad5dcfd64218,
     type: 3}
   iceWall: {fileID: 5861039372491888209, guid: a19b67951317b664dbc9a23088c72978, type: 3}
+  healEffectPrefab: {fileID: 3396592410605723515, guid: 07d726e452ff0cb419246b8ee048b7ee,
+    type: 3}
 --- !u!114 &208971881348946261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1622,7 +1624,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 5564571dbeb5a43a9b5c5daf48340303, type: 3}
+  m_Sprite: {fileID: 21300000, guid: da27f7df8385441f7a2898b5ad3aeca1, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -249,7 +249,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: da27f7df8385441f7a2898b5ad3aeca1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7c46da8c16aa14e24be6153e002c419f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -345,7 +345,7 @@ MonoBehaviour:
     time you eliminate another player, you will level up. At each level up you will
     be presented the option to acquire a random skill.\n\t\t\t\t\t1 = attack skill\n\tFire
     Barrage , Lightning bolt, Waterdrop\n\t\t\t\t\t2 = defense skill\n\tTemporal shield,
-    Ice Wall, Invincibility(6s)\n\t\t\t\t\t3 = movement skill\n\tDash , Speed Boost,
+    Ice Wall, Invincibility(6s)\n\t\t\t\t\t3 = movement skill\n\tHeal , Speed Boost,
     Teleport\nWhen ready, press START!"
 --- !u!222 &156425436
 CanvasRenderer:
@@ -412,7 +412,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 5564571dbeb5a43a9b5c5daf48340303, type: 3}
+  m_Sprite: {fileID: 21300000, guid: da27f7df8385441f7a2898b5ad3aeca1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -841,6 +841,7 @@ MonoBehaviour:
   - {fileID: 4617812555664457274, guid: 39a81c9725a2e104783ac54b81d378fe, type: 3}
   - {fileID: 8383506343015521340, guid: f7f8953b8d6afd94ab92227b58a85a10, type: 3}
   - {fileID: 7848392418304383988, guid: bb8163f7f894fcb4ebb9aa3edcf5bf0b, type: 3}
+  - {fileID: 3396592410605723515, guid: 07d726e452ff0cb419246b8ee048b7ee, type: 3}
   m_CustomConfig: 1
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -1169,8 +1170,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 131.94997, y: 58.729935}
-  m_SizeDelta: {x: 106, y: 30}
+  m_AnchoredPosition: {x: 131, y: 58.729935}
+  m_SizeDelta: {x: 136, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1064891590
 MonoBehaviour:
@@ -1196,7 +1197,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: eeccd89effa2f4ac0b17fc1fee46c4e4, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 4
@@ -1205,7 +1206,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: MOVEMENT
+  m_Text: 'MOVEMENT / UTILITY
+
+'
 --- !u!222 &1064891591
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -70,6 +70,18 @@ public class HealthManager : NetworkBehaviour
     public void RpcHpBar(float amt){hpBar.fillAmount = amt;}
 
     [Command]
+    public void CmdHealthInc(float amt) { RpcHealthInc(amt); }
+
+    [ClientRpc]
+    public void RpcHealthInc(float amt) { playerHealth = amt; }
+
+    [Command]
+    public void CmdLvlInc(int amt) { RpcLvlInc(amt); }
+
+    [ClientRpc]
+    public void RpcLvlInc(int amt) { skillLevels = amt; }
+
+    [Command]
     public void CmdXpBar(float amt){RpcXpBar(amt);}
 
     [ClientRpc]
@@ -221,11 +233,11 @@ public class HealthManager : NetworkBehaviour
             playerExperience = 0;
             playerLevel += 1;
             skillLevels += 1;
-
-            if(skillLevels > 1)
-            {
-                skillLevels = 1;
-            }
+            CmdLvlInc(skillLevels);
+            //if (skillLevels > 1)
+            //{
+            //    skillLevels = 1;
+            //}
 
             lvl.text = playerLevel.ToString();
             CmdLvl(playerLevel);
@@ -250,6 +262,7 @@ public class HealthManager : NetworkBehaviour
 
         playerHealth += amt;
         if(playerHealth > 100) { playerHealth = 100; }
+        CmdHealthInc(playerHealth);
         hpBar.fillAmount = playerHealth / startingHP;
         CmdHpBar(playerHealth / startingHP);
 
