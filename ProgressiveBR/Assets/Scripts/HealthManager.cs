@@ -147,6 +147,11 @@ public class HealthManager : NetworkBehaviour
     [ClientRpc]
     public void RpcSkillUp(){
         skill_txt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        skill_txt.gameObject.SetActive(true);
         //skill_txt_frame.SetActive(true);
         //skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
     }
@@ -227,6 +232,7 @@ public class HealthManager : NetworkBehaviour
 
             skill_txt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
             CmdSkillUp();
+
 
         }
         xpBar.fillAmount = playerExperience;

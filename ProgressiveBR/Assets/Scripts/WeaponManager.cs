@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 
 
@@ -150,6 +151,7 @@ public class WeaponManager : NetworkBehaviour
                 if(skill1timer >= skill1fireRate[attackTag])
                 {
                     AttackSkill();
+                    SetAttackIconOnCooldown();
                     skill1timer = 0f;
                 }
                 
@@ -169,6 +171,7 @@ public class WeaponManager : NetworkBehaviour
             {
                 if(skill2timer >= skill2fireRate[defenseTag]){
                     DefenseSkill();
+                    SetDefIconOnCooldown();
                     skill2timer = 0f;
                 }
             }
@@ -184,15 +187,136 @@ public class WeaponManager : NetworkBehaviour
             else{
                 if(skill3timer >= skill3fireRate[movementTag]){
                     MovementSkill();
+                    SetMovIconOnCooldown();
                     skill3timer = 0f;
                 }
             }
             SetMovementIcon();
         }
 
+        ManageIconCooldowns();
 
-        
+
     }
+
+
+    private void SetAttackIconOnCooldown()
+    {
+        switch (attackTag)
+        {
+            case (1):
+                attackIcon1.GetComponent<Image>().fillAmount = 0;
+                break;
+            case (2):
+                attackIcon2.GetComponent<Image>().fillAmount = 0;
+                break;
+            case (3):
+                attackIcon3.GetComponent<Image>().fillAmount = 0;
+                break;
+            default:
+                break;
+        }
+    }
+    private void SetDefIconOnCooldown()
+    {
+        switch (defenseTag)
+        {
+            case (1):
+                defenseIcon1.GetComponent<Image>().fillAmount = 0;
+                break;
+            case (2):
+                defenseIcon2.GetComponent<Image>().fillAmount = 0;
+                break;
+            case (3):
+                defenseIcon3.GetComponent<Image>().fillAmount = 0;
+                break;
+            default:
+                break;
+        }
+    }
+    private void SetMovIconOnCooldown()
+    {
+        switch (movementTag)
+        {
+            case (1):
+                movementIcon1.GetComponent<Image>().fillAmount = 0;
+                break;
+            case (2):
+                movementIcon2.GetComponent<Image>().fillAmount = 0;
+                break;
+            case (3):
+                movementIcon3.GetComponent<Image>().fillAmount = 0;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void ManageIconCooldowns()
+    {
+        Image currentAttackImage = null;
+        Image currentDefenseImage = null;
+        Image currentMoveImage = null;
+        switch (attackTag)
+        {
+            case (1):
+                currentAttackImage = attackIcon1.GetComponent<Image>();
+                break;
+            case (2):
+                currentAttackImage = attackIcon2.GetComponent<Image>();
+                break;
+            case (3):
+                currentAttackImage = attackIcon3.GetComponent<Image>();
+                break;
+            default:
+                break;
+        }
+        switch (defenseTag)
+        {
+            case (1):
+                currentDefenseImage = defenseIcon1.GetComponent<Image>();
+                break;
+            case (2):
+                currentDefenseImage = defenseIcon2.GetComponent<Image>();
+                break;
+            case (3):
+                currentDefenseImage = defenseIcon3.GetComponent<Image>();
+                break;
+            default:
+                break;
+        }
+        switch (movementTag)
+        {
+            case (1):
+                currentMoveImage = movementIcon1.GetComponent<Image>();
+                break;
+            case (2):
+                currentMoveImage = movementIcon2.GetComponent<Image>();
+                break;
+            case (3):
+                currentMoveImage = movementIcon3.GetComponent<Image>();
+                break;
+            default:
+                break;
+        }
+        if (currentAttackImage != null)
+        {
+            currentAttackImage.fillAmount += 1.0f / skill1fireRate[attackTag] * Time.deltaTime;
+        }
+        if (currentDefenseImage != null)
+        {
+            currentDefenseImage.fillAmount += 1.0f / skill2fireRate[defenseTag] * Time.deltaTime;
+        }
+        if (currentMoveImage != null)
+        {
+            currentMoveImage.fillAmount += 1.0f / skill3fireRate[movementTag] * Time.deltaTime;
+        }
+    
+
+
+
+    }
+
 
     private void SetAttackIcon()
     {
