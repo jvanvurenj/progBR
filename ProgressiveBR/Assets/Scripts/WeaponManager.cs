@@ -140,37 +140,44 @@ public class WeaponManager : NetworkBehaviour
             }
         }
         if (Input.GetKeyDown("1")){
-            if (gameObject.GetComponent<HealthManager>().ManageSkill()){
+            if (gameObject.GetComponent<HealthManager>().ManageSkill())
+            {
                 attackTag = Random.Range(1,4);
-                SetAttackIcon();
+                //SetAttackIcon();
                 skill1timer = 20f;
             }
             else{
-                if(skill1timer >= skill1fireRate[attackTag]){
+                if(skill1timer >= skill1fireRate[attackTag])
+                {
                     AttackSkill();
                     skill1timer = 0f;
                 }
+                
             }
-            
+            SetAttackIcon();
+
         }
-        if (Input.GetKeyDown("2")){
+        if (Input.GetKeyDown("2"))
+        {
+
             if (gameObject.GetComponent<HealthManager>().ManageSkill()){
                 defenseTag = Random.Range(1,4);
-                SetDefenseIcon();
+                //SetDefenseIcon();
                 skill2timer = 20f;
             }
-            else{
+            else
+            {
                 if(skill2timer >= skill2fireRate[defenseTag]){
                     DefenseSkill();
                     skill2timer = 0f;
                 }
             }
-            
+            SetDefenseIcon();
         }
         if (Input.GetKeyDown("3")){
             if (gameObject.GetComponent<HealthManager>().ManageSkill()){
                 movementTag = Random.Range(2,4);
-                SetMovementIcon();
+                //SetMovementIcon();
                 skill3timer = 20f;
             }
     
@@ -180,7 +187,7 @@ public class WeaponManager : NetworkBehaviour
                     skill3timer = 0f;
                 }
             }
-            
+            SetMovementIcon();
         }
 
 

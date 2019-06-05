@@ -11,6 +11,9 @@ public class HealthManager : NetworkBehaviour
     public TextMesh lvl;
     public TextMesh skilltxt;
 
+    public Text skill_txt;
+    public GameObject skill_txt_frame;
+
     [SyncVar]
     public int playerLevel = 1;
     [SyncVar]
@@ -50,12 +53,15 @@ public class HealthManager : NetworkBehaviour
         {
             return;
         }
-
-        skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
-        CmdSkillUp();
+        skill_txt.gameObject.SetActive(true);
+        skill_txt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
+        //skill_txt_frame.SetActive(true);
+        //skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
+        //CmdSkillUp();
     }
 
-    
+
+
 
     [Command]
     public void CmdHpBar(float amt){RpcHpBar(amt);}
@@ -139,8 +145,10 @@ public class HealthManager : NetworkBehaviour
     public void CmdSkillUp(){ RpcSkillUp(); }
 
     [ClientRpc]
-    public void RpcSkillUp(){ 
-        skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
+    public void RpcSkillUp(){
+        skill_txt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
+        //skill_txt_frame.SetActive(true);
+        //skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
     }
 
     [Command]
@@ -155,20 +163,40 @@ public class HealthManager : NetworkBehaviour
     }
 
 
-    public bool ManageSkill(){
-        skilltxt.text = "";
-        CmdSkillDown();
-        if (skillLevels > 0){
+    public bool ManageSkill()
+    {
+        
+        //skilltxt.text = "";
+        //CmdSkillDown();
+        if (skillLevels <= 0)
+        {
+            return false;
+        }
+        else
+        {
+            
             skillLevels -= 1;
-            if (skillLevels>0)
+            if (skillLevels > 0)
             {
-                skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
+                //skillLevels = 0;
+                //skill_txt.text = "";
+                //skill_txt_frame.SetActive(false);
+                //skill_txt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
+                //skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
                 CmdSkillUp();
             }
-            
+            else
+            {
+                skill_txt.text = "";
+                skill_txt_frame.SetActive(false);
+            }
             return true;
         }
-        return false;
+        
+        //return true;
+
+
+
     }
 
     [Command]
@@ -177,21 +205,29 @@ public class HealthManager : NetworkBehaviour
     [ClientRpc]
     public void RpcAnimateDeath() { anim.SetTrigger("Death"); }
 
+    
 
     public void GainExperience(float amt)
     {
-        
+
         playerExperience += amt;
         if(playerExperience >= 1f)
         {
             playerExperience = 0;
             playerLevel += 1;
             skillLevels += 1;
+
+            if(skillLevels > 1)
+            {
+                skillLevels = 1;
+            }
+
             lvl.text = playerLevel.ToString();
             CmdLvl(playerLevel);
-            skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
+
+            skill_txt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
             CmdSkillUp();
-            // Give level up stuff
+
         }
         xpBar.fillAmount = playerExperience;
         CmdXpBar(playerExperience);
@@ -241,13 +277,14 @@ public class HealthManager : NetworkBehaviour
     public void TakeDamage(float amt, GameObject sender)
     {
 
-        if(sender == this.gameObject)
+
+        if (sender == this.gameObject)
         {
             return;
         }
        
         // Already dead
-        if(playerHealth == 0)
+        if(playerHealth <= 0)
         {
             return;
         }
