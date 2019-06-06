@@ -191,21 +191,15 @@ public class HealthManager : NetworkBehaviour
         }
         else
         {
-            
             skillLevels -= 1;
+            CmdLvlInc(skillLevels);
             if (skillLevels > 0)
             {
-                //skillLevels = 0;
-                //skill_txt.text = "";
-                //skill_txt_frame.SetActive(false);
-                //skill_txt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
-                //skilltxt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement Skill";
                 CmdSkillUp();
             }
             else
             {
                 skill_txt.text = "";
-                skill_txt_frame.SetActive(false);
             }
             return true;
         }
@@ -233,11 +227,7 @@ public class HealthManager : NetworkBehaviour
             playerExperience = 0;
             playerLevel += 1;
             skillLevels += 1;
-            //CmdLvlInc(skillLevels);
-            if (skillLevels > 1)
-            {
-                skillLevels = 1;
-            }
+            CmdLvlInc(skillLevels);
 
             lvl.text = playerLevel.ToString();
             CmdLvl(playerLevel);
