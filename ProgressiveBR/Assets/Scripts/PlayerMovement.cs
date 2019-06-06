@@ -73,6 +73,7 @@ public class PlayerMovement : NetworkBehaviour
     }
 
     public void Spectate(GameObject sender){
+
         MyCamera.GetComponent<CameraController>().setTarget(sender);
     }
 }
