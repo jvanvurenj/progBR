@@ -22,6 +22,7 @@ public class PlayerMovement : NetworkBehaviour
     private float timer;
     private Vector3 moveDirection = Vector3.zero;
 
+
     [Command]
     public void CmdAnimate(float amt) { RpcAnimate(amt); }
 

@@ -9,6 +9,7 @@ using UnityEngine.Networking;
 public class WeaponManager : NetworkBehaviour
 {
 
+    [SyncVar]
     public float damageModifer = 0f;
     //private GameObject prefabSpawner;
     public int projectileSpeed = 300;
@@ -77,6 +78,9 @@ public class WeaponManager : NetworkBehaviour
     [SerializeField]
     private GameObject speedBuffEffect;
     [SerializeField]
+    private GameObject speedBuffEffect2;
+
+    [SerializeField]
     private GameObject teleportEffect;
 
     [SerializeField]
@@ -84,6 +88,12 @@ public class WeaponManager : NetworkBehaviour
     [SerializeField]
     private GameObject healEffectPrefab;
 
+    [SerializeField]
+    private GameObject powerupPrefab;
+    [SerializeField]
+    private GameObject powerupPrefab2;
+
+    [SyncVar] Vector3 syncPos;
 
     private Camera playerCamera;
     private float timer;
@@ -448,10 +458,12 @@ public class WeaponManager : NetworkBehaviour
                 break;
             case (2):
                 CmdSpeedBuff();
+                StartCoroutine(SpeedBuffEffect());
                 gameObject.GetComponent<PlayerMovement>().SpeedBoost();
                 break;
             case (3): // Teleport to random spawn position, and play a teleport animation
-                Teleport();
+                StartCoroutine(Heroism());
+                //Teleport();
                 break;
             default:
                 break;
@@ -519,20 +531,79 @@ public class WeaponManager : NetworkBehaviour
     }
 
 
+    // Damage buff for 5 seconds
+    public IEnumerator Heroism()
+    {
+        CmdPowerup(1);
+        yield return new WaitForSeconds(5);
+        CmdPowerup(0);
+    }
+
+
+    public IEnumerator SpeedBuffEffect()
+    {
+        CmdSpeedPowerup(1);
+        yield return new WaitForSeconds(6);
+        CmdSpeedPowerup(0);
+    }
+
+
+    [Command]
+    public void CmdSpeedPowerup(int i) { RpcSpeedPowerup(i); }
+
+    [ClientRpc]
+    public void RpcSpeedPowerup(int i)
+    {
+        if (i == 1)
+        {
+            speedBuffEffect2.SetActive(true);
+        }
+        else
+        {
+            speedBuffEffect2.SetActive(false);
+        }
+
+    }
+
+
+
+    [Command]
+    public void CmdPowerup(int i){ RpcPowerup(i);}
+
+    [ClientRpc]
+    public void RpcPowerup(int i)
+    {
+        if (i == 1)
+        {
+            damageModifer += 25f;
+            powerupPrefab.SetActive(true);
+            powerupPrefab2.SetActive(true);
+        }
+        else
+        {
+            damageModifer -= 25f;
+            powerupPrefab.SetActive(false);
+            powerupPrefab2.SetActive(false);
+        }
+            
+    }
+
     public void Teleport()
     {
         GameObject[] SpawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
         int r = Random.Range(0, SpawnPoints.Length);
         CmdTeleAnim();
-        gameObject.transform.position = SpawnPoints[r].transform.position;
-        CmdTeleport(SpawnPoints[r]);
+        syncPos = SpawnPoints[r].transform.position;
+        //gameObject.transform.position = SpawnPoints[r].transform.position;
+        transform.position = syncPos;
+        CmdTeleport(syncPos);
         return;
     }
 
     [Command]
-    public void CmdTeleport(GameObject obj) {RpcTeleport(obj); }
+    public void CmdTeleport(Vector3 obj) {RpcTeleport(obj); }
     [ClientRpc]
-    public void RpcTeleport(GameObject obj) { gameObject.transform.position = obj.transform.position;}
+    public void RpcTeleport(Vector3 obj) { transform.position = obj; }
 
 
     [Command]

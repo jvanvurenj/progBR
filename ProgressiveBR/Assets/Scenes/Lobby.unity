@@ -346,7 +346,7 @@ MonoBehaviour:
     be presented the option to acquire a random skill.\n\t\t\t\t\t1 = attack skill\n\tFire
     Barrage , Lightning bolt, Waterdrop\n\t\t\t\t\t2 = defense skill\n\tTemporal shield,
     Ice Wall, Invincibility(6s)\n\t\t\t\t\t3 = movement/utility skill\n\tHeal , Speed
-    Boost, Teleport\nWhen ready, press START!"
+    Boost, Damge Boost\nWhen ready, press START!"
 --- !u!222 &156425436
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -486,7 +486,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: f3e60cd6661c144e4ae2b1e1d6fae27b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6e69c5db903a440b49382d27baee88fb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -842,6 +842,9 @@ MonoBehaviour:
   - {fileID: 8383506343015521340, guid: f7f8953b8d6afd94ab92227b58a85a10, type: 3}
   - {fileID: 7848392418304383988, guid: bb8163f7f894fcb4ebb9aa3edcf5bf0b, type: 3}
   - {fileID: 3396592410605723515, guid: 07d726e452ff0cb419246b8ee048b7ee, type: 3}
+  - {fileID: 2424839228318620856, guid: 632a17ba59b1f6f43ad8d152959468d7, type: 3}
+  - {fileID: 8988080730637744719, guid: c7f51da0a25152047afdd53a5a14161a, type: 3}
+  - {fileID: 577457694876444636, guid: 0163ae5d924b0844abf7b07ab1893515, type: 3}
   m_CustomConfig: 1
   m_MaxConnections: 4
   m_ConnectionConfig:
