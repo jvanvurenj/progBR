@@ -14,6 +14,8 @@ public class HealthManager : NetworkBehaviour
     public Text skill_txt;
     public GameObject skill_txt_frame;
 
+    public AudioSource powerup;
+
     [SyncVar]
     public int playerLevel = 1;
     [SyncVar]
@@ -232,6 +234,7 @@ public class HealthManager : NetworkBehaviour
             lvl.text = playerLevel.ToString();
             CmdLvl(playerLevel);
 
+            powerup.Play();
             skill_txt.text = "Level up! Press\n1. Attack Skill\n2. Defense Skill\n 3. Movement/ Utility Skill";
             CmdSkillUp();
 
