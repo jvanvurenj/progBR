@@ -28,6 +28,15 @@ public class CameraController : MonoBehaviour
         transform.position = new Vector3(target.transform.position.x, target.transform.position.y + offset.y + 3, target.transform.position.z -11 );
 
     }
+    public void setSpectate(GameObject target){
+        player = target;
+        //offset.x = offset.x - target.transform.position.x;
+        //offset.z = offset.z - target.transform.position.z;
+
+        transform.position = new Vector3(target.transform.position.x, target.transform.position.y + offset.y + 3, target.transform.position.z -11 );
+        offset = transform.position - target.transform.position;
+        //offset = new Vector3()
+    }
 
    
 }

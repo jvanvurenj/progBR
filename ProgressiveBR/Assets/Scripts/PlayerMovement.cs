@@ -62,6 +62,8 @@ public class PlayerMovement : NetworkBehaviour
         
     }
 
+    
+
     public void SpeedBoost()
     {
         StartCoroutine(speedwaiter());
@@ -75,6 +77,6 @@ public class PlayerMovement : NetworkBehaviour
 
     public void Spectate(GameObject sender){
 
-        MyCamera.GetComponent<CameraController>().setTarget(sender);
+        MyCamera.GetComponent<CameraController>().setSpectate(sender);
     }
 }

@@ -106,15 +106,15 @@ public class WeaponManager : NetworkBehaviour
     //SKILL MAPPING
     // Attack: 1 = lightning (fast, lots of damage, big cooldown) 2 = Double shot (fires two fireballs, same damage, low cooldown) 3. Water drop (Falls from the sky at the location of the mouse. takes maybe 3 seconds to land, but does a ton of damage. big cooldown) 
     // Defense: 1. Shield (Use it, get a shield of 50 health for 2 seconds. Cooldown of maybe 6 seconds?) 2. Wall. Spawns a wall that lasts for 3 seconds. Cooldown of 10 seconds. 3. Invincible. Unable to take damage for 4 seconds. Cooldown of like 15 seconds
-    // Movement: 1. Dash. Quick burst in direction of the mouse. Almost instantaneous. 2. Speed Boost. Increased movement speed for 5 seconds. Cooldown of 10 seconds. 3. Teleport. Moves the player randomly to one of the spawn locations on the map. Cooldown of 20 seconds.
+    // Movement: 1. HEal. 2. Speed Boost. Increased movement speed for 5 seconds. Cooldown of 10 seconds. 3. Teleport. Moves the player randomly to one of the spawn locations on the map. Cooldown of 20 seconds.
 
     private int attackTag = 0;
     private int defenseTag = 0;
     private int movementTag = 0;
 
-    private int[] skill1fireRate = new int[4]{0, 10, 4, 10}; 
+    private int[] skill1fireRate = new int[4]{0, 10, 5, 10}; 
     private int[] skill2fireRate = new int[4]{0, 6, 10, 15};
-    private int[] skill3fireRate = new int[4]{0, 6, 10, 15};
+    private int[] skill3fireRate = new int[4]{0, 12, 10, 15};
 
 
 
@@ -397,7 +397,7 @@ public class WeaponManager : NetworkBehaviour
         switch (defenseTag)
         {
             case (1): // 2  second shield.
-                gameObject.GetComponent<HealthManager>().GainShield(shieldAmount, 2);
+                gameObject.GetComponent<HealthManager>().GainShield(shieldAmount, 3);
                 break;
             case (2): // Spawn a temporary wall
                 Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
