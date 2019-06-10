@@ -94,6 +94,12 @@ public class HealthManager : NetworkBehaviour
 
     [ClientRpc]
     public void RpcLvl(int level) { lvl.text = level.ToString(); }
+    
+    [Command]
+    public void CmdLvlUpSound() { RpcLvlUpSound(); }
+
+    [ClientRpc]
+    public void RpcLvlUpSound() { powerup.Play(); }
 
 
     [Command]
